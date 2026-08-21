@@ -293,6 +293,20 @@
     .pub-row .r-desc{ grid-column:1 / -1; grid-row:2; }
   }
 
+  /* ============ LINKEDIN ============ */
+  .linkedin{ border-top:1px solid var(--line); }
+  .li-lead{ color:var(--paper-dim); font-size:1rem; line-height:1.75; max-width:640px; margin:-36px 0 44px; }
+  .li-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--line); border:1px solid var(--line); }
+  .li-card{ background:var(--ink-2); padding:34px 32px; display:flex; flex-direction:column; gap:14px; }
+  .li-date{ font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--gold); text-transform:uppercase; letter-spacing:0.1em; display:flex; align-items:center; gap:8px; }
+  .li-date svg{ width:14px; height:14px; }
+  .li-card h3{ font-family:'Fraunces', serif; font-weight:500; font-size:1.22rem; line-height:1.3; color:var(--paper); }
+  .li-card p{ color:var(--paper-dim); font-size:0.94rem; line-height:1.68; }
+  .li-tags{ display:flex; flex-wrap:wrap; gap:8px; margin-top:auto; padding-top:6px; }
+  .li-tag{ font-family:'IBM Plex Mono', monospace; font-size:9.5px; color:var(--paper-dim-2); border:1px solid var(--line-strong); padding:4px 9px; border-radius:2px; text-transform:uppercase; letter-spacing:0.03em; }
+  @media (max-width:760px){ .li-grid{ grid-template-columns:1fr; } }
+  .li-more{ margin-top:40px; display:flex; justify-content:center; }
+
   /* ============ FORMACIÓN ============ */
   .formacion-grid{ display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line); border:1px solid var(--line); }
   .f-card{ background:var(--ink); padding:34px; }
@@ -342,6 +356,7 @@
       <a href="#metricas">Trayectoria</a>
       <a href="#gaceta">Gaceta Fiscal</a>
       <a href="#publicaciones">Publicaciones</a>
+      <a href="#linkedin">LinkedIn</a>
       <a href="#formacion">Formación</a>
       <a href="#firma">Contacto</a>
     </div>
@@ -609,11 +624,69 @@
     </div>
   </section>
 
+  <!-- ===== LINKEDIN — últimas reflexiones ===== -->
+  <section class="linkedin" id="linkedin">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="section-num">Exp. 05</span>
+        <h2 class="section-title">Últimas <span>reflexiones</span></h2>
+        <hr class="rule">
+      </div>
+      <p class="li-lead reveal">Casi a diario publico en LinkedIn análisis breve de doctrina, jurisprudencia y actualidad tributaria: la misma disciplina de actualización que aplico en cada expediente, y la mejor prueba de que sigo en primera línea de la materia.</p>
+
+      <div class="li-grid reveal">
+        <div class="li-card">
+          <div class="li-date">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="16" rx="1"/><path d="M3 9h18"/></svg>
+            21 ago 2026
+          </div>
+          <h3>¿Puede Hacienda ignorar un documento por estar redactado en inglés?</h3>
+          <p>El artículo 106.1 LGT remite a la LEC: todo documento en idioma no oficial debe traducirse para poder valorarse como prueba. El TEAC lo confirma en doctrina reiterada — pero traducir no exige traducción jurada, y el criterio cambia según quién aporte el documento.</p>
+          <div class="li-tags"><span class="li-tag">Procedimiento tributario</span><span class="li-tag">TEAC</span><span class="li-tag">Prueba</span></div>
+        </div>
+
+        <div class="li-card">
+          <div class="li-date">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="16" rx="1"/><path d="M3 9h18"/></svg>
+            20 ago 2026
+          </div>
+          <h3>De Spiderman a Bulgari: los gastos más peculiares que alguien ha intentado deducir</h3>
+          <p>Un repaso, con casos reales de la DGT y los tribunales, a gastos deducidos que no lo eran: una mamoplastia, un disfraz de Spiderman, la cuota del Real Madrid, un colgante de Tous. El fondo nunca es lo extravagante del gasto, sino su correlación con la actividad y la prueba de esa correlación.</p>
+          <div class="li-tags"><span class="li-tag">Impuesto sobre Sociedades</span><span class="li-tag">IRPF</span><span class="li-tag">Inspección</span></div>
+        </div>
+
+        <div class="li-card">
+          <div class="li-date">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="16" rx="1"/><path d="M3 9h18"/></svg>
+            17 ago 2026
+          </div>
+          <h3>Reducción de capital con adjudicación de inmuebles</h3>
+          <p>Cuando una sociedad reparte un inmueble entre sus socios en una reducción de capital o disolución, hay un impuesto que conviene anticipar antes de firmar la operación, no después.</p>
+          <div class="li-tags"><span class="li-tag">Mercantil</span><span class="li-tag">ITPAJD</span><span class="li-tag">Planificación</span></div>
+        </div>
+
+        <div class="li-card">
+          <div class="li-date">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="16" rx="1"/><path d="M3 9h18"/></svg>
+            7 ago 2026
+          </div>
+          <h3>La simulación no se aplica a la carta según el ejercicio</h3>
+          <p>STS 990/2026: la Inspección apreció simulación entre 2013 y 2016, pero solo trasladó sus efectos al Impuesto sobre Sociedades cuando el IRPF del socio ya no podía regularizarse. El Supremo rechaza esa asimetría — la misma calificación no puede aplicarse de forma selectiva según lo que recaude cada ejercicio.</p>
+          <div class="li-tags"><span class="li-tag">Simulación</span><span class="li-tag">Tribunal Supremo</span><span class="li-tag">IS</span></div>
+        </div>
+      </div>
+
+      <div class="li-more reveal">
+        <a class="btn btn-ghost" href="https://www.linkedin.com/in/luis-de-francisco-morales-828704b8/recent-activity/all/" target="_blank" rel="noopener">Ver más en LinkedIn ↗</a>
+      </div>
+    </div>
+  </section>
+
   <!-- ===== FORMACIÓN (separada de trayectoria) ===== -->
   <section id="formacion">
     <div class="wrap">
       <div class="section-head reveal">
-        <span class="section-num">Exp. 05</span>
+        <span class="section-num">Exp. 06</span>
         <h2 class="section-title"><span>Formación</span> académica y continua</h2>
         <hr class="rule">
       </div>
