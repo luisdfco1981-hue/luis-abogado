@@ -3,741 +3,275 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Luis de Francisco Morales — Abogado Fiscal Senior</title>
-<meta name="description" content="Abogado fiscal senior en Madrid. 19+ años en IRPF, Patrimonio, Sociedades y fiscalidad patrimonial. Dirección editorial de Gaceta Fiscal.">
+<title>Luis de Francisco Morales — Abogado Fiscal</title>
+<meta name="description" content="Blog de análisis fiscal de Luis de Francisco Morales. Abogado fiscal en Madrid, 19+ años en IRPF, Patrimonio, Sociedades y fiscalidad patrimonial.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
     --ink:#1E3350;
-    --ink-2:#263C5B;
-    --ink-3:#30496A;
+    --ink-2:#233A59;
     --paper:#F1ECE0;
-    --paper-dim:#AEB8C4;
+    --paper-dim:#AFB9C6;
     --paper-dim-2:#8593A3;
     --gold:#C9A468;
     --gold-bright:#E4C48D;
-    --line: rgba(241,236,224,0.16);
-    --line-strong: rgba(241,236,224,0.28);
+    --line: rgba(241,236,224,0.14);
+    --line-strong: rgba(241,236,224,0.26);
   }
-  *{box-sizing:border-box; margin:0; padding:0;}
-  html{scroll-behavior:smooth;}
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
   body{
     background:var(--ink);
     color:var(--paper);
     font-family:'Inter', sans-serif;
     -webkit-font-smoothing:antialiased;
-    overflow-x:hidden;
   }
   ::selection{ background:var(--gold); color:var(--ink); }
   a{ color:inherit; }
   img{ max-width:100%; display:block; }
 
-  .wrap{ max-width:1120px; margin:0 auto; padding:0 32px; }
+  .wrap{ max-width:760px; margin:0 auto; padding:0 28px; }
 
-  .ledger-bg{
-    position:fixed; inset:0; z-index:0; pointer-events:none;
-    background-image:
-      repeating-linear-gradient(180deg, transparent, transparent 39px, var(--line) 40px),
-      radial-gradient(ellipse 900px 500px at 15% -10%, rgba(201,164,104,0.13), transparent 60%);
-    opacity:0.5;
+  /* ============ HEADER ============ */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(30,51,80,0.88); backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
   }
-
-  header{ position:fixed; top:0; left:0; right:0; z-index:50; }
-  .nav{ display:flex; align-items:center; justify-content:space-between; padding:22px 32px; max-width:1120px; margin:0 auto; }
-  .nav-mark{ font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:0.14em; color:var(--gold-bright); text-decoration:none; text-transform:uppercase; }
-  .nav-links{ display:flex; gap:26px; }
-  .nav-links a{ font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.1em; text-decoration:none; color:var(--paper-dim); text-transform:uppercase; transition:color .25s ease; }
+  .nav{ max-width:760px; margin:0 auto; padding:18px 28px; display:flex; align-items:center; justify-content:space-between; gap:12px 20px; flex-wrap:wrap; }
+  .nav-mark{ font-family:'Fraunces', serif; font-style:italic; font-weight:500; font-size:1.05rem; text-decoration:none; color:var(--paper); white-space:nowrap; }
+  .nav-links{ display:flex; gap:18px; }
+  .nav-links a{ font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:0.07em; text-decoration:none; color:var(--paper-dim); text-transform:uppercase; transition:color .2s ease; white-space:nowrap; }
   .nav-links a:hover{ color:var(--gold-bright); }
+  @media (max-width:460px){ .nav-links{ gap:12px; } }
 
   /* ============ HERO ============ */
-  .hero{
-    position:relative; min-height:100svh;
-    display:grid; grid-template-columns:1.15fr 0.85fr; align-items:center; gap:48px;
-    padding-top:120px; padding-bottom:80px; z-index:1;
+  .hero{ padding:64px 0 56px; display:flex; gap:26px; align-items:flex-start; }
+  .hero-photo{
+    width:76px; height:76px; border-radius:50%; object-fit:cover; flex-shrink:0;
+    border:1px solid var(--line-strong); filter:grayscale(1) contrast(1.05);
   }
-  .hero-text{ max-width:640px; }
   .eyebrow{
-    font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:0.22em; text-transform:uppercase;
-    color:var(--gold-bright); display:flex; align-items:center; gap:12px; margin-bottom:28px;
-    opacity:0; transform:translateY(10px); animation: rise .8s cubic-bezier(.16,1,.3,1) .1s forwards;
+    font-family:'IBM Plex Mono', monospace; font-size:11.5px; letter-spacing:0.14em; text-transform:uppercase;
+    color:var(--gold); margin-bottom:10px;
   }
-  .eyebrow::before{ content:''; width:28px; height:1px; background:var(--gold); }
   h1.name{
-    font-family:'Fraunces', serif; font-weight:500;
-    font-size:clamp(2.4rem, 5.6vw, 4.6rem); line-height:0.98; letter-spacing:-0.01em; color:var(--paper);
-    opacity:0; transform:translateY(16px); animation: rise .9s cubic-bezier(.16,1,.3,1) .25s forwards;
+    font-family:'Fraunces', serif; font-weight:500; font-style:italic;
+    font-size:clamp(1.7rem, 4vw, 2.3rem); line-height:1.1; color:var(--paper); margin-bottom:16px;
   }
-  h1.name em{ font-style:italic; color:var(--gold-bright); font-weight:400; }
-  .hero-sub{
-    margin-top:26px; font-size:1.06rem; line-height:1.65; color:var(--paper-dim); font-weight:400;
-    opacity:0; transform:translateY(14px); animation: rise .9s cubic-bezier(.16,1,.3,1) .42s forwards;
-  }
-  .hero-sub strong{ color:var(--paper); font-weight:500; }
-  .hero-actions{
-    margin-top:40px; display:flex; gap:14px; flex-wrap:wrap;
-    opacity:0; transform:translateY(14px); animation: rise .9s cubic-bezier(.16,1,.3,1) .58s forwards;
-  }
+  .hero-bio{ font-size:1rem; line-height:1.7; color:var(--paper-dim); max-width:58ch; }
+  .hero-bio strong{ color:var(--paper); font-weight:500; }
+  .hero-actions{ margin-top:22px; display:flex; gap:12px; flex-wrap:wrap; }
   .btn{
-    font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:0.08em; text-transform:uppercase;
-    padding:14px 22px; border-radius:2px; text-decoration:none; display:inline-flex; align-items:center; gap:10px;
-    transition:all .25s ease; border:1px solid var(--line-strong);
+    font-family:'IBM Plex Mono', monospace; font-size:11.5px; letter-spacing:0.06em; text-transform:uppercase;
+    padding:11px 18px; border-radius:2px; text-decoration:none; display:inline-flex; align-items:center; gap:8px;
+    transition:all .2s ease; border:1px solid var(--line-strong);
   }
   .btn-gold{ background:var(--gold); color:var(--ink); border-color:var(--gold); font-weight:500; }
-  .btn-gold:hover{ background:var(--gold-bright); border-color:var(--gold-bright); transform:translateY(-2px); }
+  .btn-gold:hover{ background:var(--gold-bright); border-color:var(--gold-bright); }
   .btn-ghost{ color:var(--paper); }
-  .btn-ghost:hover{ border-color:var(--gold); color:var(--gold-bright); transform:translateY(-2px); }
-
-  /* portrait */
-  .hero-portrait{
-    position:relative; justify-self:center;
-    opacity:0; transform:translateY(18px) scale(.98);
-    animation: rise .9s cubic-bezier(.16,1,.3,1) .35s forwards;
-  }
-  .portrait-frame{
-    position:relative; width:min(340px, 82vw); aspect-ratio:3/3.6;
-    border:1px solid var(--line-strong); padding:14px;
-    background:var(--ink-2);
-  }
-  .portrait-frame::before, .portrait-frame::after{
-    content:''; position:absolute; width:20px; height:20px; border:1px solid var(--gold);
-  }
-  .portrait-frame::before{ top:-1px; left:-1px; border-right:none; border-bottom:none; }
-  .portrait-frame::after{ bottom:-1px; right:-1px; border-left:none; border-top:none; }
-  .portrait-img-wrap{ position:relative; width:100%; height:100%; overflow:hidden; }
-  .portrait-img-wrap img{ width:100%; height:100%; object-fit:cover; filter:grayscale(1) contrast(1.03) brightness(1.02); }
-  .portrait-img-wrap::after{
-    content:''; position:absolute; inset:0;
-    background:linear-gradient(160deg, rgba(201,164,104,0.26), rgba(30,51,80,0.42) 70%);
-    mix-blend-mode:multiply;
-  }
-  .portrait-cap{
-    font-family:'IBM Plex Mono', monospace; font-size:10px; letter-spacing:0.1em; color:var(--paper-dim-2);
-    text-transform:uppercase; margin-top:14px; text-align:center;
-  }
-  .portrait-seal{
-    position:absolute; top:-22px; right:-22px; width:96px; height:96px;
-    opacity:0; transform:scale(2.2) rotate(-16deg);
-    animation: stamp .55s cubic-bezier(.2,1.4,.4,1) 1s forwards;
-  }
-  @media (max-width:860px){
-    .hero{ grid-template-columns:1fr; padding-top:150px; }
-    .hero-portrait{ order:-1; margin-bottom:8px; }
-  }
-
-  @keyframes rise{ to{ opacity:1; transform:translateY(0) scale(1); } }
-  @keyframes stamp{
-    0%{ opacity:0; transform:scale(2.2) rotate(-16deg); }
-    60%{ opacity:1; transform:scale(0.94) rotate(-8deg); }
-    100%{ opacity:1; transform:scale(1) rotate(-9deg); }
-  }
-
-  .scroll-cue{
-    position:absolute; bottom:30px; left:32px;
-    font-family:'IBM Plex Mono', monospace; font-size:10px; letter-spacing:0.15em; color:var(--paper-dim-2); text-transform:uppercase;
-    display:flex; align-items:center; gap:10px;
-  }
-  .scroll-cue .line{ width:1px; height:32px; background:linear-gradient(var(--gold), transparent); }
+  .btn-ghost:hover{ border-color:var(--gold); color:var(--gold-bright); }
+  @media (max-width:560px){ .hero{ flex-direction:column; padding-top:44px; } }
 
   /* ============ SECTION generic ============ */
-  section{ position:relative; z-index:1; padding:110px 0; }
-  .section-head{ display:flex; align-items:baseline; gap:18px; margin-bottom:60px; }
-  .section-num{ font-family:'IBM Plex Mono', monospace; font-size:13px; color:var(--gold); letter-spacing:0.08em; white-space:nowrap; }
-  .section-title{ font-family:'Fraunces', serif; font-weight:500; font-size:clamp(1.6rem,3.4vw,2.4rem); color:var(--paper); }
-  .section-title span{ color:var(--gold-bright); font-style:italic; }
-  .rule{ height:1px; background:var(--line); border:none; flex:1; margin-top:6px;}
-  .section-kicker{ color:var(--paper-dim); font-size:1rem; line-height:1.7; max-width:640px; margin:-36px 0 56px; }
+  section{ padding:8px 0 72px; }
+  .section-title{
+    font-family:'Fraunces', serif; font-weight:500; font-size:1.5rem; color:var(--paper);
+    padding-top:56px; margin-bottom:6px; border-top:1px solid var(--line);
+  }
+  .section-kicker{ color:var(--paper-dim); font-size:0.96rem; line-height:1.65; max-width:56ch; margin-bottom:36px; }
 
-  .reveal{ opacity:0; transform:translateY(24px); transition:opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1); }
-  .reveal.in{ opacity:1; transform:translateY(0); }
+  /* ============ FEATURED POST ============ */
+  .post-featured{
+    display:grid; grid-template-columns:130px 1fr; gap:24px; align-items:start;
+    padding:22px; margin-bottom:40px; border:1px solid var(--line-strong); background:var(--ink-2);
+    text-decoration:none; transition:border-color .2s ease, transform .2s ease;
+  }
+  .post-featured:hover{ border-color:var(--gold); transform:translateY(-2px); }
+  .post-featured img{ border:1px solid var(--line-strong); }
+  .pf-kicker{ font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:0.12em; text-transform:uppercase; color:var(--gold); margin-bottom:10px; }
+  .post-featured h3{ font-family:'Fraunces', serif; font-weight:500; font-size:1.4rem; color:var(--paper); line-height:1.2; margin-bottom:6px; }
+  .post-featured h3 em{ color:var(--gold-bright); font-style:italic; }
+  .pf-sub{ font-size:0.9rem; color:var(--paper-dim); line-height:1.5; }
+  @media (max-width:560px){ .post-featured{ grid-template-columns:1fr; } .post-featured img{ width:100px; } }
 
-  /* ============ METRICS ============ */
-  .metrics{ border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
-  .metrics-grid{ display:grid; grid-template-columns:repeat(3,1fr); }
-  .metric{ padding:52px 40px; border-right:1px solid var(--line); position:relative; }
-  .metric:last-child{ border-right:none; }
-  .metric-icon{ width:30px; height:30px; margin-bottom:20px; color:var(--gold); }
-  .metric-tag{ font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--gold); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:16px; display:block; }
-  .metric-num{ font-family:'Fraunces', serif; font-weight:500; font-size:clamp(3rem,6vw,4.6rem); line-height:1; color:var(--paper); display:flex; align-items:baseline; gap:6px; }
-  .metric-num .unit{ font-size:0.32em; color:var(--gold-bright); font-family:'IBM Plex Mono',monospace; font-weight:400; }
-  .metric-label{ margin-top:18px; font-size:0.98rem; line-height:1.55; color:var(--paper-dim); max-width:280px; }
-  @media (max-width:860px){
-    .metrics-grid{ grid-template-columns:1fr; }
-    .metric{ border-right:none; border-bottom:1px solid var(--line); }
-    .metric:last-child{ border-bottom:none; }
+  /* ============ POST LIST ============ */
+  .post-list{ border-top:1px solid var(--line); }
+  .post{ display:block; padding:26px 0; border-bottom:1px solid var(--line); text-decoration:none; }
+  .post-date{ font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--paper-dim-2); text-transform:uppercase; letter-spacing:0.06em; }
+  .post h3{ font-family:'Fraunces', serif; font-weight:500; font-size:1.18rem; color:var(--paper); line-height:1.3; margin:8px 0 8px; transition:color .2s ease; }
+  .post:hover h3{ color:var(--gold-bright); }
+  .post p{ font-size:0.95rem; color:var(--paper-dim); line-height:1.65; max-width:60ch; }
+  .post-tags{ margin-top:12px; display:flex; flex-wrap:wrap; gap:7px; }
+  .post-tag{ font-family:'IBM Plex Mono', monospace; font-size:9.5px; color:var(--paper-dim-2); border:1px solid var(--line-strong); padding:3px 8px; border-radius:2px; text-transform:uppercase; letter-spacing:0.03em; }
+
+  .post-list--compact{ margin-top:44px; }
+  .post-list--compact h4{
+    font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.12em; text-transform:uppercase;
+    color:var(--gold); margin-bottom:4px; padding-top:8px;
+  }
+  .row{ display:flex; justify-content:space-between; gap:16px; padding:14px 0; border-bottom:1px solid var(--line); font-size:0.92rem; }
+  .row .r-src{ color:var(--paper); }
+  .row .r-year{ font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--paper-dim-2); flex-shrink:0; }
+
+  .more-link{ margin-top:32px; }
+
+  /* ============ ABOUT ============ */
+  .about-block{ margin-bottom:26px; }
+  .about-block h4{ font-family:'Fraunces', serif; font-weight:500; font-size:1.05rem; color:var(--paper); margin-bottom:4px; }
+  .about-block .meta{ font-family:'IBM Plex Mono', monospace; font-size:10.5px; color:var(--gold-bright); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:8px; }
+  .about-block p{ color:var(--paper-dim); font-size:0.94rem; line-height:1.65; max-width:60ch; }
+
+  .stat-line{
+    display:flex; flex-wrap:wrap; gap:8px 0; font-family:'IBM Plex Mono', monospace; font-size:11.5px;
+    color:var(--paper-dim); letter-spacing:0.02em; margin-bottom:32px;
+  }
+  .stat-line b{ color:var(--gold-bright); font-weight:500; }
+  .stat-line .sep{ margin:0 12px; color:var(--line-strong); }
+
+  .tags-row{ display:flex; flex-wrap:wrap; gap:8px; margin:28px 0 8px; }
+  .tag{ font-family:'IBM Plex Mono', monospace; font-size:10.5px; color:var(--paper-dim); border:1px solid var(--line-strong); padding:6px 11px; border-radius:2px; text-transform:uppercase; letter-spacing:0.03em; }
+
+  .study-grid{ display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:8px; }
+  .study-grid h4{ font-family:'Fraunces', serif; font-weight:500; font-size:0.98rem; color:var(--paper); margin-bottom:10px; }
+  .study-list{ list-style:none; }
+  .study-list li{ font-size:0.9rem; color:var(--paper-dim); padding:8px 0; border-top:1px solid var(--line); }
+  .study-list li:first-child{ border-top:none; }
+  .study-list li b{ color:var(--paper); font-weight:500; display:block; }
+  .study-list li span{ font-family:'IBM Plex Mono', monospace; font-size:10px; color:var(--paper-dim-2); }
+  @media (max-width:560px){ .study-grid{ grid-template-columns:1fr; gap:28px; } }
+
+  /* ============ CONTACT ============ */
+  .contact-links{ display:flex; flex-wrap:wrap; gap:12px; }
+
+  footer{
+    text-align:center; padding:32px 28px 40px; border-top:1px solid var(--line);
+    font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:0.06em; color:var(--paper-dim-2); text-transform:uppercase;
   }
 
-  /* ============ TIMELINE / ARTICULOS ============ */
-  .timeline{ position:relative; }
-  .timeline::before{
-    content:''; position:absolute; left:59px; top:8px; bottom:8px; width:1px;
-    background:linear-gradient(var(--line-strong), var(--line) 90%);
-  }
-  @media (max-width:640px){ .timeline::before{ left:19px; } }
-
-  .articulo{ display:grid; grid-template-columns:120px 1fr; gap:32px; padding:34px 0; position:relative; }
-  .art-mark{ font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--gold); letter-spacing:0.06em; padding-top:4px; position:relative; }
-  .art-mark small{ display:block; color:var(--paper-dim-2); margin-top:6px; font-size:11px; }
-  .art-dot{
-    position:absolute; left:59px; top:9px; width:9px; height:9px; margin-left:-4.5px;
-    border-radius:50%; background:var(--ink); border:2px solid var(--gold);
-  }
-  @media (max-width:640px){ .art-dot{ left:19px; } }
-  .art-icon{ width:22px; height:22px; color:var(--gold-bright); margin-bottom:10px; }
-  .art-body h3{ font-family:'Fraunces', serif; font-weight:500; font-size:1.45rem; color:var(--paper); margin-bottom:6px; }
-  .art-meta{ font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--gold-bright); letter-spacing:0.04em; margin-bottom:14px; text-transform:uppercase; }
-  .art-body p{ color:var(--paper-dim); line-height:1.7; font-size:0.98rem; max-width:600px; }
-  .art-body ul{ margin-top:10px; padding-left:18px; color:var(--paper-dim); font-size:0.95rem; line-height:1.8; }
-  @media (max-width:640px){ .articulo{ grid-template-columns:1fr; gap:10px; padding-left:36px; } .art-mark{ padding-top:0; } }
-
-  /* ============ AREAS icon chips ============ */
-  .areas{ display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line); margin-top:8px; }
-  .chip{ background:var(--ink-2); padding:22px 18px; display:flex; flex-direction:column; gap:10px; }
-  .chip svg{ width:20px; height:20px; color:var(--gold); }
-  .chip span{ font-family:'IBM Plex Mono', monospace; font-size:11.5px; letter-spacing:0.03em; color:var(--paper-dim); line-height:1.4; }
-  @media (max-width:760px){ .areas{ grid-template-columns:repeat(2,1fr); } }
-
-  /* ============ GACETA — visual editorial spotlight ============ */
-  .gaceta{ background:var(--ink-2); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
-  .gaceta-grid{ display:grid; grid-template-columns:0.62fr 1fr; gap:64px; align-items:center; }
-  @media (max-width:860px){ .gaceta-grid{ grid-template-columns:1fr; gap:44px; } }
-
-  .cover{
-    position:relative; width:100%; max-width:340px; margin:0 auto;
-    box-shadow: 0 30px 70px -20px rgba(8,16,28,0.5);
-    transform:rotate(-2.5deg);
-    transition:transform .4s ease;
-  }
-  .cover:hover{ transform:rotate(0deg) scale(1.02); }
-  .cover-photo{
-    background:var(--ink-2);
-    border:1px solid var(--line-strong);
-    padding:14px 14px 20px;
-  }
-  .cover-photo img{
-    width:100%; height:auto; display:block;
-    box-shadow:0 0 0 1px var(--line-strong);
-  }
-  .cover-caption{
-    display:flex; flex-direction:column; gap:4px; margin-top:14px;
-    font-family:'IBM Plex Mono', monospace; font-size:10px; letter-spacing:0.05em; color:var(--paper-dim-2); text-transform:uppercase;
-  }
-  .cover-caption span:first-child{ color:var(--gold-bright); }
-
-  .gaceta-text h3{ font-family:'Fraunces', serif; font-weight:500; font-size:clamp(1.5rem,3vw,2rem); margin-bottom:20px; color:var(--paper); }
-  .gaceta-text p{ color:var(--paper-dim); line-height:1.75; font-size:1rem; max-width:520px; margin-bottom:18px; }
-  .gaceta-issues{ display:flex; gap:10px; flex-wrap:wrap; margin-top:24px; }
-  .issue-tag{ font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--gold-bright); border:1px solid var(--line-strong); padding:7px 12px; border-radius:2px; }
-
-  /* ============ PUBLICACIONES ============ */
-  .pubs{ border-top:1px solid var(--line); }
-  .pub-feature{ display:grid; grid-template-columns:0.56fr 1fr; gap:56px; align-items:start; }
-  @media (max-width:860px){ .pub-feature{ grid-template-columns:1fr; gap:40px; } }
-
-  .pub-cover{ width:100%; max-width:310px; margin:0 auto; }
-  .pub-cover a{ display:block; position:relative; transition:transform .4s ease; }
-  .pub-cover a:hover{ transform:translateY(-5px); }
-  .pub-cover img{ width:100%; border:1px solid var(--line-strong); box-shadow:0 26px 60px -24px rgba(8,16,28,0.65); }
-  .pub-cover .pub-cover-cap{
-    font-family:'IBM Plex Mono', monospace; font-size:10px; letter-spacing:0.1em; text-transform:uppercase;
-    color:var(--paper-dim-2); text-align:center; margin-top:14px;
-  }
-
-  .pub-kicker{ font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--gold); margin-bottom:14px; }
-  .pub-text h3{ font-family:'Fraunces', serif; font-weight:500; font-size:clamp(1.5rem,3vw,2.05rem); color:var(--paper); line-height:1.15; margin-bottom:8px; }
-  .pub-text h3 em{ font-style:italic; color:var(--gold-bright); }
-  .pub-sub{ font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--paper-dim-2); letter-spacing:0.03em; margin-bottom:22px; }
-  .pub-text p{ color:var(--paper-dim); line-height:1.75; font-size:1rem; max-width:560px; margin-bottom:16px; }
-
-  .pub-quote{
-    font-family:'Fraunces', serif; font-style:italic; font-size:1.12rem; line-height:1.55; color:var(--paper);
-    border-left:2px solid var(--gold); padding:4px 0 4px 20px; margin:26px 0 30px; max-width:560px;
-  }
-
-  .pub-principles{ display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line); }
-  .principle{ background:var(--ink); padding:15px 16px; display:flex; gap:11px; align-items:flex-start; }
-  .principle i{
-    font-family:'IBM Plex Mono', monospace; font-style:normal; font-size:10.5px; color:var(--gold);
-    letter-spacing:0.05em; padding-top:3px; min-width:32px;
-  }
-  .principle span{ font-size:0.9rem; color:var(--paper-dim); line-height:1.42; }
-  @media (max-width:860px){ .pub-principles{ grid-template-columns:repeat(2,1fr); } }
-  @media (max-width:520px){ .pub-principles{ grid-template-columns:1fr; } }
-
-  .pub-actions{ margin-top:30px; display:flex; gap:14px; flex-wrap:wrap; align-items:center; }
-  .pub-note{
-    margin-top:24px; font-family:'IBM Plex Mono', monospace; font-size:10.5px; line-height:1.7;
-    letter-spacing:0.04em; color:var(--paper-dim-2); max-width:520px;
-    display:flex; gap:10px; align-items:flex-start;
-  }
-  .pub-note svg{ width:14px; height:14px; color:var(--gold); flex-shrink:0; margin-top:2px; }
-
-  .pub-more{ margin-top:72px; }
-  .pub-more h4{
-    font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.14em; text-transform:uppercase;
-    color:var(--gold); margin-bottom:22px;
-  }
-  .pub-rows{ border-top:1px solid var(--line); }
-  .pub-row{
-    display:grid; grid-template-columns:180px 1fr 90px; gap:22px; align-items:baseline;
-    padding:18px 2px; border-bottom:1px solid var(--line);
-  }
-  .pub-row .r-src{ font-family:'IBM Plex Mono', monospace; font-size:11.5px; letter-spacing:0.06em; text-transform:uppercase; color:var(--gold-bright); }
-  .pub-row .r-desc{ font-size:0.96rem; color:var(--paper-dim); line-height:1.55; }
-  .pub-row .r-year{ font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--paper-dim-2); text-align:right; }
-  @media (max-width:640px){
-    .pub-row{ grid-template-columns:1fr auto; gap:6px 16px; }
-    .pub-row .r-src{ grid-column:1; grid-row:1; }
-    .pub-row .r-year{ grid-column:2; grid-row:1; }
-    .pub-row .r-desc{ grid-column:1 / -1; grid-row:2; }
-  }
-
-  /* ============ LINKEDIN ============ */
-  .linkedin{ border-top:1px solid var(--line); }
-  .li-lead{ color:var(--paper-dim); font-size:1rem; line-height:1.75; max-width:640px; margin:-36px 0 44px; }
-  .li-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--line); border:1px solid var(--line); }
-  .li-card{ background:var(--ink-2); padding:34px 32px; display:flex; flex-direction:column; gap:14px; }
-  .li-date{ font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--gold); text-transform:uppercase; letter-spacing:0.1em; display:flex; align-items:center; gap:8px; }
-  .li-date svg{ width:14px; height:14px; }
-  .li-card h3{ font-family:'Fraunces', serif; font-weight:500; font-size:1.22rem; line-height:1.3; color:var(--paper); }
-  .li-card p{ color:var(--paper-dim); font-size:0.94rem; line-height:1.68; }
-  .li-tags{ display:flex; flex-wrap:wrap; gap:8px; margin-top:auto; padding-top:6px; }
-  .li-tag{ font-family:'IBM Plex Mono', monospace; font-size:9.5px; color:var(--paper-dim-2); border:1px solid var(--line-strong); padding:4px 9px; border-radius:2px; text-transform:uppercase; letter-spacing:0.03em; }
-  @media (max-width:760px){ .li-grid{ grid-template-columns:1fr; } }
-  .li-more{ margin-top:40px; display:flex; justify-content:center; }
-
-  /* ============ FORMACIÓN ============ */
-  .formacion-grid{ display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line); border:1px solid var(--line); }
-  .f-card{ background:var(--ink); padding:34px; }
-  .f-card h4{ font-family:'Fraunces', serif; font-weight:500; font-size:1.2rem; color:var(--paper); margin-bottom:6px; }
-  .f-card .f-meta{ font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--gold-bright); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:14px; }
-  .f-list{ list-style:none; }
-  .f-list li{ font-size:0.98rem; color:var(--paper-dim); padding:12px 0; border-top:1px solid var(--line); display:flex; justify-content:space-between; align-items:baseline; gap:12px; }
-  .f-list li:first-child{ border-top:none; }
-  .f-list li b{ color:var(--gold-bright); font-weight:600; font-size:1.08em; }
-  .f-list li span{ font-family:'IBM Plex Mono', monospace; font-size:10.5px; color:var(--paper-dim-2); white-space:nowrap; }
-  .f-degree{ padding:6px 0 10px !important; }
-  .f-degree b{
-    font-family:'Fraunces', serif; font-weight:600; font-style:italic;
-    font-size:2rem !important; color:var(--gold-bright); line-height:1.15; display:block;
-  }
-  .f-degree span{ font-family:'IBM Plex Mono', monospace; font-size:13px; letter-spacing:0.04em; color:var(--paper); font-weight:500; text-transform:uppercase; }
-  @media (max-width:760px){ .formacion-grid{ grid-template-columns:1fr; } }
-
-  /* ============ FIRMA / contacto ============ */
-  .firma{ background:var(--ink-2); border-top:1px solid var(--line); }
-  .firma-quote{ font-family:'Fraunces', serif; font-style:italic; font-weight:400; font-size:clamp(1.4rem,3.2vw,2.1rem); line-height:1.45; color:var(--paper); max-width:760px; margin-bottom:52px; }
-  .firma-quote span{ color:var(--gold-bright); }
-  .contact-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--line); border:1px solid var(--line); }
-  .contact-item{ background:var(--ink-2); padding:32px 28px; text-decoration:none; transition:background .25s ease; display:flex; flex-direction:column; gap:12px; }
-  .contact-item:hover{ background:var(--ink-3); }
-  .contact-item .k{ font-family:'IBM Plex Mono', monospace; font-size:10.5px; color:var(--gold); text-transform:uppercase; letter-spacing:0.12em; }
-  .contact-item .v{ font-size:1.08rem; color:var(--paper); font-weight:500; }
-  .contact-item svg{ width:18px; height:18px; color:var(--gold-bright); }
-  @media (max-width:640px){ .contact-grid{ grid-template-columns:1fr; } }
-
-  footer{ text-align:center; padding:36px 32px; font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:0.08em; color:var(--paper-dim-2); text-transform:uppercase; position:relative; z-index:1; }
-
-  @media (prefers-reduced-motion: reduce){
-    *{ animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important; }
-  }
+  @media (prefers-reduced-motion: reduce){ *{ scroll-behavior:auto !important; } }
   :focus-visible{ outline:2px solid var(--gold-bright); outline-offset:3px; }
 </style>
 </head>
 <body>
 
-<div class="ledger-bg"></div>
-
 <header>
   <nav class="nav">
     <a href="#" class="nav-mark">L. de Francisco Morales</a>
     <div class="nav-links">
-      <a href="#metricas">Trayectoria</a>
-      <a href="#gaceta">Gaceta Fiscal</a>
-      <a href="#publicaciones">Publicaciones</a>
-      <a href="#linkedin">LinkedIn</a>
-      <a href="#formacion">Formación</a>
-      <a href="#firma">Contacto</a>
+      <a href="#articulos">Artículos</a>
+      <a href="#sobre-mi">Sobre mí</a>
+      <a href="#contacto">Contacto</a>
     </div>
   </nav>
 </header>
 
 <main>
   <section class="hero wrap">
+    <img class="hero-photo" src="assets/luis.png" alt="Luis de Francisco Morales">
     <div class="hero-text">
-      <div class="eyebrow">Abogado Fiscal Senior · Madrid</div>
-      <h1 class="name">Luis de Francisco<br><em>Morales</em></h1>
-      <p class="hero-sub">
-        <strong>19 años</strong> convirtiendo normativa compleja en decisiones claras para mis clientes,
-        en IRPF, Patrimonio, Sociedades y fiscalidad patrimonial. Una experiencia forjada tanto en el despacho
-        como al frente de la <strong>dirección editorial</strong> de una revista jurídico-tributaria de referencia
-        durante una década.
+      <p class="eyebrow">Abogado fiscal · Madrid</p>
+      <h1 class="name">Luis de Francisco Morales</h1>
+      <p class="hero-bio">
+        <strong>19 años</strong> convirtiendo normativa compleja en decisiones claras: IRPF, Patrimonio,
+        Sociedades y fiscalidad patrimonial. Diez de ellos al frente de la dirección editorial de
+        <em>Gaceta Fiscal</em>. Aquí comparto, casi a diario, análisis breve de doctrina, jurisprudencia
+        y actualidad tributaria.
       </p>
       <div class="hero-actions">
-        <a class="btn btn-gold" href="./cv.pdf" target="_blank" rel="noopener">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 19h16"/></svg>
-          Descargar CV
-        </a>
+        <a class="btn btn-gold" href="./cv.pdf" target="_blank" rel="noopener">Descargar CV</a>
         <a class="btn btn-ghost" href="https://www.linkedin.com/in/luis-de-francisco-morales-828704b8" target="_blank" rel="noopener">LinkedIn ↗</a>
       </div>
     </div>
-
-    <div class="hero-portrait">
-      <div class="portrait-frame">
-        <div class="portrait-img-wrap">
-          <img src="assets/luis.png" alt="Luis de Francisco Morales">
-        </div>
-      </div>
-      <div class="portrait-cap">Madrid · Colegiado en ejercicio</div>
-      <div class="portrait-seal" aria-hidden="true">
-        <svg viewBox="0 0 200 200">
-          <circle cx="100" cy="100" r="92" fill="none" stroke="#C9A468" stroke-width="2"/>
-          <circle cx="100" cy="100" r="80" fill="none" stroke="#C9A468" stroke-width="1"/>
-          <path id="sealcircle" d="M100,20 A80,80 0 1,1 99.9,20" fill="none"/>
-          <text font-family="IBM Plex Mono, monospace" font-size="9.5" fill="#E4C48D" letter-spacing="2">
-            <textPath href="#sealcircle" startOffset="2%">FISCAL · CONTABLE · PATRIMONIAL · EDITORIAL ·</textPath>
-          </text>
-          <text x="100" y="94" text-anchor="middle" font-family="Fraunces, serif" font-size="30" fill="#F1ECE0">19+</text>
-          <text x="100" y="118" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="#AEB8C4" letter-spacing="1.5">AÑOS EJERCICIO</text>
-        </svg>
-      </div>
-    </div>
-
-    <div class="scroll-cue"><span class="line"></span> Vistos los antecedentes</div>
   </section>
 
-  <!-- ===== METRICAS ===== -->
-  <section class="metrics" id="metricas">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <span class="section-num">Exp. 01</span>
-        <h2 class="section-title">Los <span>hechos</span> probados</h2>
-        <hr class="rule">
-      </div>
+  <!-- ===== ARTÍCULOS ===== -->
+  <section class="wrap" id="articulos">
+    <h2 class="section-title">Artículos</h2>
+    <p class="section-kicker">La misma disciplina de actualización que aplico en cada expediente, en formato breve.</p>
+
+    <div id="post-featured-slot"></div>
+
+    <div class="post-list" id="post-list"></div>
+
+    <div class="post-list--compact" id="gaceta-slot" hidden>
+      <h4>También en Gaceta Fiscal</h4>
+      <div id="gaceta-rows"></div>
     </div>
-    <div class="metrics-grid wrap" style="padding-left:0; padding-right:0;">
-      <div class="metric reveal">
-        <svg class="metric-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3v18M5 8l7-5 7 5M5 8v10a1 1 0 001 1h12a1 1 0 001-1V8"/></svg>
-        <span class="metric-tag">Continuidad</span>
-        <div class="metric-num">19<span class="unit">años</span></div>
-        <p class="metric-label">De ejercicio ininterrumpido en fiscalidad y contabilidad, desde 2006 hasta hoy, para sociedades, profesionales y particulares.</p>
-      </div>
-      <div class="metric reveal">
-        <svg class="metric-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19.5V4.8A2.8 2.8 0 016.8 2H20v17.5M4 19.5A2.5 2.5 0 006.5 22H20M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M9 7h7M9 11h7"/></svg>
-        <span class="metric-tag">Autoridad editorial</span>
-        <div class="metric-num">10<span class="unit">años</span></div>
-        <p class="metric-label">Dirigiendo y coordinando <em>Gaceta Fiscal</em>, con análisis diario de normativa, doctrina administrativa y jurisprudencia.</p>
-      </div>
-      <div class="metric reveal">
-        <svg class="metric-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6l8-3z"/></svg>
-        <span class="metric-tag">Espectro de práctica</span>
-        <div class="metric-num">5<span class="unit">especialidades</span></div>
-        <p class="metric-label">IRPF · Patrimonio · Sociedades · ITPAJD · ISD — con expedientes en gestión, inspección, recaudación, vía económico-administrativa y judicial.</p>
-      </div>
+
+    <div class="more-link">
+      <a class="btn btn-ghost" href="https://www.linkedin.com/in/luis-de-francisco-morales-828704b8/recent-activity/all/" target="_blank" rel="noopener">Ver más en LinkedIn ↗</a>
     </div>
   </section>
 
-  <!-- ===== TRAYECTORIA (sin formación) ===== -->
-  <section id="trayectoria">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <span class="section-num">Exp. 02</span>
-        <h2 class="section-title">Trayectoria <span>profesional</span></h2>
-        <hr class="rule">
+  <!-- ===== SOBRE MÍ ===== -->
+  <section class="wrap" id="sobre-mi">
+    <h2 class="section-title">Sobre mí</h2>
+
+    <p class="stat-line">
+      <b>19 años</b> de ejercicio ininterrumpido<span class="sep">·</span>
+      <b>10 años</b> dirigiendo <em>Gaceta Fiscal</em><span class="sep">·</span>
+      <b>5</b> especialidades tributarias
+    </p>
+
+    <div class="about-block">
+      <h4>Legal Mavens</h4>
+      <div class="meta">2026 · Abogado Senior, Departamento Fiscal</div>
+      <p>Liquidación y revisión de obligaciones tributarias de sociedades, personas físicas y patrimonios familiares. Asesoramiento fiscal recurrente, informes técnicos y planificación patrimonial.</p>
+    </div>
+
+    <div class="about-block">
+      <h4>Grupo de Empresas Díaz Arias</h4>
+      <div class="meta">2006 — 2025 · Bufete Díaz-Arias / GESAF / FAT</div>
+      <p>Asesoramiento fiscal y contable a todo tipo de clientes. Dirección de expedientes tributarios en sede administrativa (gestión, inspección, recaudación y revisión), económico-administrativa y judicial. Confección y liquidación de IS, IRPF, ITPAJD, ISD y tributos locales. Equipo jurídico de GESAF y del Foro de Abogados Tributaristas (FAT).</p>
+    </div>
+
+    <div class="about-block">
+      <h4>Gaceta Fiscal</h4>
+      <div class="meta">2015 — 2025 · Dirección y coordinación editorial</div>
+      <p>Elaboración, coordinación y dirección de esta revista jurídico-tributaria de referencia, con seguimiento diario de las modificaciones legislativas autonómicas, estatales y europeas y de los pronunciamientos de la Administración y los tribunales. La misma disciplina de actualización que aplico hoy en cada expediente: primero entender el criterio de la Administración, después construir con rigor la posición del cliente.</p>
+    </div>
+
+    <div class="tags-row">
+      <span class="tag">IRPF</span>
+      <span class="tag">Impuesto sobre el Patrimonio</span>
+      <span class="tag">Impuesto sobre Sociedades</span>
+      <span class="tag">ITPAJD</span>
+      <span class="tag">ISD</span>
+      <span class="tag">Empresa familiar</span>
+      <span class="tag">Private client</span>
+      <span class="tag">Planificación patrimonial</span>
+    </div>
+
+    <div class="study-grid">
+      <div>
+        <h4>Universidad Autónoma de Madrid</h4>
+        <ul class="study-list">
+          <li><b>Doble Licenciatura, Derecho y ADE</b><span>1999 — 2006</span></li>
+        </ul>
       </div>
-
-      <div class="timeline">
-        <div class="articulo reveal">
-          <span class="art-dot"></span>
-          <div class="art-mark">ART. I<small>2026</small></div>
-          <div class="art-body">
-            <svg class="art-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="16" rx="1"/><path d="M7 9h10M7 13h10M7 17h6"/></svg>
-            <h3>Legal Mavens</h3>
-            <div class="art-meta">Abogado Senior · Departamento Fiscal</div>
-            <p>Liquidación y revisión de obligaciones tributarias de sociedades, personas físicas y patrimonios familiares. Asesoramiento fiscal recurrente, informes técnicos y planificación patrimonial.</p>
-          </div>
-        </div>
-
-        <div class="articulo reveal">
-          <span class="art-dot"></span>
-          <div class="art-mark">ART. II<small>2006 — 2025</small></div>
-          <div class="art-body">
-            <svg class="art-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3v3M4.5 8.5L12 6l7.5 2.5M4.5 8.5v0a3 3 0 006 0M4.5 8.5H10.5M19.5 8.5v0a3 3 0 01-6 0M19.5 8.5H13.5M6 21h12M9 12v9M15 12v9"/></svg>
-            <h3>Grupo de Empresas Díaz Arias</h3>
-            <div class="art-meta">Abogado Fiscal · Bufete Díaz-Arias / GESAF / FAT</div>
-            <p>Asesoramiento fiscal y contable a todo tipo de clientes. Dirección de expedientes tributarios en sede administrativa (gestión, inspección, recaudación y revisión), económico-administrativa y judicial. Confección y liquidación de IS, IRPF, ITPAJD, ISD y tributos locales.</p>
-            <ul>
-              <li>Equipo jurídico de GESAF y Foro de Abogados Tributaristas (FAT)</li>
-              <li>Resolución de consultas jurídicas y atención directa a clientes</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="articulo reveal">
-          <span class="art-dot"></span>
-          <div class="art-mark">ART. III<small>2015 — 2025</small></div>
-          <div class="art-body">
-            <svg class="art-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4.5A2.5 2.5 0 016.5 2H20v18H6.5A2.5 2.5 0 004 22.5v-18z"/><path d="M8 7h8M8 11h8"/></svg>
-            <h3>Gaceta Fiscal</h3>
-            <div class="art-meta">Dirección y coordinación editorial</div>
-            <p>Elaboración, coordinación y dirección de la revista jurídico-tributaria. Contacto diario con las modificaciones legislativas autonómicas, estatales y europeas, y con los últimos pronunciamientos de la Administración y la jurisprudencia.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="areas reveal">
-        <div class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg><span>IRPF</span></div>
-        <div class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l2.4 6.5H21l-5.3 4 2 6.5L12 15l-5.7 4 2-6.5L3 8.5h6.6z"/></svg><span>Impuesto sobre el Patrimonio</span></div>
-        <div class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="7" width="18" height="13" rx="1"/><path d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2"/></svg><span>Impuesto sobre Sociedades</span></div>
-        <div class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 12l9-9 9 9M5 10v10h14V10"/></svg><span>ITPAJD</span></div>
-        <div class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21c4-3 7-6.5 7-11a7 7 0 10-14 0c0 4.5 3 8 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><span>ISD</span></div>
-        <div class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="9" cy="7" r="3"/><circle cx="17" cy="7" r="2.5"/><path d="M2 21v-1a6 6 0 016-6h2a6 6 0 016 6v1M17 14a4.5 4.5 0 014.5 4.5V21"/></svg><span>Empresa familiar</span></div>
-        <div class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 21V8l8-5 8 5v13M9 21v-6h6v6"/></svg><span>Private client</span></div>
-        <div class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 3v18h18M7 15l4-5 3 3 6-7"/></svg><span>Planificación patrimonial</span></div>
+      <div>
+        <h4>Formación complementaria</h4>
+        <ul class="study-list">
+          <li><b>Gestoría fiscal, laboral y contable</b><span>CEF · 150h</span></li>
+          <li><b>Experto en financiación de empresas</b><span>170h</span></li>
+          <li><b>Registros contables</b><span>120h</span></li>
+          <li><b>Contratación laboral</b><span>64h</span></li>
+          <li><b>IA y Big Data</b><span>50h</span></li>
+        </ul>
       </div>
     </div>
   </section>
 
-  <!-- ===== GACETA FISCAL — visual ===== -->
-  <section class="gaceta" id="gaceta">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <span class="section-num">Exp. 03</span>
-        <h2 class="section-title">Una década al <span>frente</span> de Gaceta Fiscal</h2>
-        <hr class="rule">
-      </div>
-
-      <div class="gaceta-grid">
-        <div class="cover cover-photo reveal">
-          <img src="assets/gaceta-cover.jpg" alt="Portada de Gaceta Fiscal, nº 443, septiembre 2023 — 40 años">
-          <div class="cover-caption">
-            <span>40 años · Dirección editorial: Luis de Francisco Morales</span>
-          </div>
-        </div>
-
-        <div class="gaceta-text reveal">
-          <h3>Revista jurídico-tributaria de referencia</h3>
-          <p>Durante más de una década he tenido el privilegio de dirigir y coordinar <em>Gaceta Fiscal</em>, una revista jurídico-tributaria de referencia, con seguimiento diario de las modificaciones legislativas autonómicas, estatales y europeas, y de los pronunciamientos más recientes de la Administración y los tribunales. Ha sido una etapa de la que me siento profundamente agradecido: me ha permitido formarme junto a grandes profesionales del sector y estar en primera línea de cada cambio normativo antes de que llegara a los despachos.</p>
-          <p>Esa disciplina de actualización constante —norma, doctrina, jurisprudencia— no se ha quedado en la revista: es el mismo método que aplico en cada expediente. Primero entiendo el criterio de la Administración; después, construyo con rigor la posición del cliente.</p>
-          <div class="gaceta-issues">
-            <span class="issue-tag">Artículo — Nº 419 · 2021</span>
-            <span class="issue-tag">Artículo — Nº 421 · 2021</span>
-            <span class="issue-tag">Artículo — Nº 447 · 2024</span>
-            <span class="issue-tag">Artículo — Nº 458 · 2025</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== PUBLICACIONES ===== -->
-  <section class="pubs" id="publicaciones">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <span class="section-num">Exp. 04</span>
-        <h2 class="section-title"><span>Publicaciones</span> y divulgación</h2>
-        <hr class="rule">
-      </div>
-
-      <div class="pub-feature">
-        <div class="pub-cover reveal">
-          <a href="./assets/el-principe-fiscal.pdf" target="_blank" rel="noopener">
-            <img src="assets/principe-fiscal-cover.jpg" alt="Portada de El Príncipe fiscal — Doce lecciones de Maquiavelo para sobrevivir a un procedimiento tributario">
-          </a>
-          <div class="pub-cover-cap">MMXXVI · 12 principios · PDF</div>
-        </div>
-
-        <div class="pub-text reveal">
-          <div class="pub-kicker">Publicación destacada</div>
-          <h3>El Príncipe <em>fiscal</em></h3>
-          <div class="pub-sub">Doce lecciones de Maquiavelo para sobrevivir a un procedimiento tributario</div>
-
-          <p>
-            Doce principios de <em>El Príncipe</em> leídos como lo que realmente son en un expediente tributario:
-            advertencias sobre el tiempo, la prueba y la forma. Cada uno enfrenta el texto de Maquiavelo con su
-            traducción al derecho tributario vigente —plusvalía municipal, calificación y simulación, conflicto en
-            la aplicación de la norma, empresa familiar, valor de referencia, motivación de la culpabilidad,
-            plazos del procedimiento inspector, consultas vinculantes o recargos por extemporaneidad— y se cierra
-            con la lectura desde el otro lado de la mesa: qué mira el actuario.
-          </p>
-
-          <blockquote class="pub-quote">
-            «Ninguna de estas doce ideas enseña a engañar a Hacienda. Todas explican cómo se pierde un expediente
-            antes de que empiece.»
-          </blockquote>
-
-          <div class="pub-principles">
-            <div class="principle"><i>I</i><span>Cura la tisis antes de verla</span></div>
-            <div class="principle"><i>II</i><span>El nombre no gobierna</span></div>
-            <div class="principle"><i>III</i><span>No hay línea: hay zona</span></div>
-            <div class="principle"><i>IV</i><span>Recorre el terreno en paz</span></div>
-            <div class="principle"><i>V</i><span>No uses armadura prestada</span></div>
-            <div class="principle"><i>VI</i><span>Aporta de una vez</span></div>
-            <div class="principle"><i>VII</i><span>Sancionar no es liquidar</span></div>
-            <div class="principle"><i>VIII</i><span>El tiempo es expediente</span></div>
-            <div class="principle"><i>IX</i><span>Toda fortaleza cambia de bando</span></div>
-            <div class="principle"><i>X</i><span>Huye de los aduladores</span></div>
-            <div class="principle"><i>XI</i><span>La neutralidad no es refugio</span></div>
-            <div class="principle"><i>XII</i><span>La liberalidad arruina</span></div>
-          </div>
-
-          <div class="pub-actions">
-            <a class="btn btn-gold" href="./assets/el-principe-fiscal.pdf" target="_blank" rel="noopener">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 19h16"/></svg>
-              Leer el documento
-            </a>
-          </div>
-
-          <p class="pub-note">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8v.01"/></svg>
-            Contenido elaborado con asistencia de inteligencia artificial y revisado por un profesional en ejercicio.
-          </p>
-        </div>
-      </div>
-
-      <div class="pub-more reveal">
-        <h4>Otras colaboraciones</h4>
-        <div class="pub-rows">
-          <div class="pub-row">
-            <div class="r-src">Gaceta Fiscal · Nº 419</div>
-            <div class="r-desc">Artículo en la revista jurídico-tributaria</div>
-            <div class="r-year">2021</div>
-          </div>
-          <div class="pub-row">
-            <div class="r-src">Gaceta Fiscal · Nº 421</div>
-            <div class="r-desc">Artículo en la revista jurídico-tributaria</div>
-            <div class="r-year">2021</div>
-          </div>
-          <div class="pub-row">
-            <div class="r-src">Gaceta Fiscal · Nº 447</div>
-            <div class="r-desc">Artículo en la revista jurídico-tributaria</div>
-            <div class="r-year">2024</div>
-          </div>
-          <div class="pub-row">
-            <div class="r-src">Gaceta Fiscal · Nº 458</div>
-            <div class="r-desc">Artículo en la revista jurídico-tributaria</div>
-            <div class="r-year">2025</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== LINKEDIN — últimas reflexiones ===== -->
-  <section class="linkedin" id="linkedin">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <span class="section-num">Exp. 05</span>
-        <h2 class="section-title">Últimas <span>reflexiones</span></h2>
-        <hr class="rule">
-      </div>
-      <p class="li-lead reveal">Casi a diario publico en LinkedIn análisis breve de doctrina, jurisprudencia y actualidad tributaria: la misma disciplina de actualización que aplico en cada expediente, y la mejor prueba de que sigo en primera línea de la materia.</p>
-
-      <div class="li-grid reveal">
-        <div class="li-card">
-          <div class="li-date">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="16" rx="1"/><path d="M3 9h18"/></svg>
-            21 ago 2026
-          </div>
-          <h3>¿Puede Hacienda ignorar un documento por estar redactado en inglés?</h3>
-          <p>El artículo 106.1 LGT remite a la LEC: todo documento en idioma no oficial debe traducirse para poder valorarse como prueba. El TEAC lo confirma en doctrina reiterada — pero traducir no exige traducción jurada, y el criterio cambia según quién aporte el documento.</p>
-          <div class="li-tags"><span class="li-tag">Procedimiento tributario</span><span class="li-tag">TEAC</span><span class="li-tag">Prueba</span></div>
-        </div>
-
-        <div class="li-card">
-          <div class="li-date">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="16" rx="1"/><path d="M3 9h18"/></svg>
-            20 ago 2026
-          </div>
-          <h3>De Spiderman a Bulgari: los gastos más peculiares que alguien ha intentado deducir</h3>
-          <p>Un repaso, con casos reales de la DGT y los tribunales, a gastos deducidos que no lo eran: una mamoplastia, un disfraz de Spiderman, la cuota del Real Madrid, un colgante de Tous. El fondo nunca es lo extravagante del gasto, sino su correlación con la actividad y la prueba de esa correlación.</p>
-          <div class="li-tags"><span class="li-tag">Impuesto sobre Sociedades</span><span class="li-tag">IRPF</span><span class="li-tag">Inspección</span></div>
-        </div>
-
-        <div class="li-card">
-          <div class="li-date">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="16" rx="1"/><path d="M3 9h18"/></svg>
-            17 ago 2026
-          </div>
-          <h3>Reducción de capital con adjudicación de inmuebles</h3>
-          <p>Cuando una sociedad reparte un inmueble entre sus socios en una reducción de capital o disolución, hay un impuesto que conviene anticipar antes de firmar la operación, no después.</p>
-          <div class="li-tags"><span class="li-tag">Mercantil</span><span class="li-tag">ITPAJD</span><span class="li-tag">Planificación</span></div>
-        </div>
-
-        <div class="li-card">
-          <div class="li-date">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="16" rx="1"/><path d="M3 9h18"/></svg>
-            7 ago 2026
-          </div>
-          <h3>La simulación no se aplica a la carta según el ejercicio</h3>
-          <p>STS 990/2026: la Inspección apreció simulación entre 2013 y 2016, pero solo trasladó sus efectos al Impuesto sobre Sociedades cuando el IRPF del socio ya no podía regularizarse. El Supremo rechaza esa asimetría — la misma calificación no puede aplicarse de forma selectiva según lo que recaude cada ejercicio.</p>
-          <div class="li-tags"><span class="li-tag">Simulación</span><span class="li-tag">Tribunal Supremo</span><span class="li-tag">IS</span></div>
-        </div>
-      </div>
-
-      <div class="li-more reveal">
-        <a class="btn btn-ghost" href="https://www.linkedin.com/in/luis-de-francisco-morales-828704b8/recent-activity/all/" target="_blank" rel="noopener">Ver más en LinkedIn ↗</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== FORMACIÓN (separada de trayectoria) ===== -->
-  <section id="formacion">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <span class="section-num">Exp. 06</span>
-        <h2 class="section-title"><span>Formación</span> académica y continua</h2>
-        <hr class="rule">
-      </div>
-
-      <div class="formacion-grid reveal">
-        <div class="f-card">
-          <h4>Universidad Autónoma de Madrid</h4>
-          <div class="f-meta">1999 — 2006</div>
-          <ul class="f-list">
-            <li class="f-degree"><b>Doble Licenciatura</b><span>Derecho y ADE</span></li>
-          </ul>
-        </div>
-        <div class="f-card">
-          <h4>Formación complementaria</h4>
-          <div class="f-meta">CEF y especializaciones</div>
-          <ul class="f-list">
-            <li><b>Gestoría fiscal, laboral y contable</b><span>CEF · 150h</span></li>
-            <li><b>Experto en financiación de empresas</b><span>170h</span></li>
-            <li><b>Registros contables</b><span>120h</span></li>
-            <li><b>Contratación laboral</b><span>64h</span></li>
-            <li><b>IA y Big Data</b><span>50h</span></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== FIRMA / CONTACTO ===== -->
-  <section class="firma" id="firma">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <span class="section-num">Exp. 06</span>
-        <h2 class="section-title">A la <span>firma</span></h2>
-        <hr class="rule">
-      </div>
-      <p class="firma-quote reveal">
-        Quedo a su disposición para ampliar cualquier información sobre mi trayectoria profesional
-        y valorar <span>cómo mi experiencia puede encajar</span> con las necesidades de su equipo.
-      </p>
-      <div class="contact-grid reveal">
-        <a class="contact-item" href="https://www.linkedin.com/in/luis-de-francisco-morales-828704b8" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 10v7M7 7v.01M11 17v-4a2 2 0 014 0v4M11 13v4M17 13v4"/></svg>
-          <span class="k">LinkedIn</span>
-          <span class="v">Ver perfil profesional ↗</span>
-        </a>
-        <a class="contact-item" href="./cv.pdf" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
-          <span class="k">Curriculum</span>
-          <span class="v">Descargar CV completo ↓</span>
-        </a>
-      </div>
+  <!-- ===== CONTACTO ===== -->
+  <section class="wrap" id="contacto">
+    <h2 class="section-title">Contacto</h2>
+    <p class="section-kicker">Quedo a su disposición para ampliar cualquier información sobre mi trayectoria profesional.</p>
+    <div class="contact-links">
+      <a class="btn btn-gold" href="https://www.linkedin.com/in/luis-de-francisco-morales-828704b8" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a class="btn btn-ghost" href="./cv.pdf" target="_blank" rel="noopener">Descargar CV completo ↓</a>
     </div>
   </section>
 </main>
@@ -745,11 +279,44 @@
 <footer>Madrid · Doble Licenciatura Derecho y ADE, UAM</footer>
 
 <script>
-  const els = document.querySelectorAll('.reveal');
-  const io = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
-  }, { threshold:0.15 });
-  els.forEach(el=>io.observe(el));
+  // Los artículos se cargan desde assets/posts.json — añadir uno nuevo ahí,
+  // no hace falta tocar este HTML. Ver README.md para instrucciones.
+  fetch('assets/posts.json')
+    .then(r => r.json())
+    .then(renderArticulos)
+    .catch(err => console.error('No se pudo cargar assets/posts.json:', err));
+
+  function renderArticulos(data){
+    const featuredSlot = document.getElementById('post-featured-slot');
+    if (data.featured){
+      const f = data.featured;
+      featuredSlot.innerHTML = `
+        <a class="post-featured" href="${f.url}" target="_blank" rel="noopener">
+          <img src="${f.cover}" alt="${(f.title || '').replace(/<[^>]+>/g,'')}">
+          <div>
+            <div class="pf-kicker">${f.kicker || ''}</div>
+            <h3>${f.title || ''}</h3>
+            <p class="pf-sub">${f.excerpt || ''}</p>
+          </div>
+        </a>`;
+    }
+
+    const list = document.getElementById('post-list');
+    list.innerHTML = (data.posts || []).map(p => `
+      <a class="post" href="${p.url}" target="_blank" rel="noopener">
+        <span class="post-date">${p.date}</span>
+        <h3>${p.title}</h3>
+        <p>${p.excerpt}</p>
+        <div class="post-tags">${(p.tags || []).map(t => `<span class="post-tag">${t}</span>`).join('')}</div>
+      </a>`).join('');
+
+    const gaceta = data.gaceta || [];
+    if (gaceta.length){
+      document.getElementById('gaceta-slot').hidden = false;
+      document.getElementById('gaceta-rows').innerHTML = gaceta.map(g => `
+        <div class="row"><span class="r-src">${g.label} — ${g.desc}</span><span class="r-year">${g.year}</span></div>`).join('');
+    }
+  }
 </script>
 
 </body>

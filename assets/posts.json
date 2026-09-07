@@ -1,0 +1,45 @@
+{
+  "featured": {
+    "kicker": "Publicación destacada · PDF",
+    "title": "El Príncipe <em>fiscal</em>",
+    "excerpt": "Doce lecciones de Maquiavelo para sobrevivir a un procedimiento tributario — plusvalía municipal, simulación, empresa familiar, plazos de inspección y qué mira el actuario.",
+    "cover": "assets/principe-fiscal-cover.jpg",
+    "url": "assets/el-principe-fiscal.pdf"
+  },
+  "posts": [
+    {
+      "date": "21 ago 2026",
+      "title": "¿Puede Hacienda ignorar un documento por estar redactado en inglés?",
+      "excerpt": "El artículo 106.1 LGT remite a la LEC: todo documento en idioma no oficial debe traducirse para poder valorarse como prueba. El TEAC lo confirma en doctrina reiterada — pero traducir no exige traducción jurada, y el criterio cambia según quién aporte el documento.",
+      "tags": ["Procedimiento tributario", "TEAC", "Prueba"],
+      "url": "https://www.linkedin.com/in/luis-de-francisco-morales-828704b8/recent-activity/all/"
+    },
+    {
+      "date": "20 ago 2026",
+      "title": "De Spiderman a Bulgari: los gastos más peculiares que alguien ha intentado deducir",
+      "excerpt": "Un repaso, con casos reales de la DGT y los tribunales, a gastos deducidos que no lo eran: una mamoplastia, un disfraz de Spiderman, la cuota del Real Madrid, un colgante de Tous. El fondo nunca es lo extravagante del gasto, sino su correlación con la actividad y la prueba de esa correlación.",
+      "tags": ["Impuesto sobre Sociedades", "IRPF", "Inspección"],
+      "url": "https://www.linkedin.com/in/luis-de-francisco-morales-828704b8/recent-activity/all/"
+    },
+    {
+      "date": "17 ago 2026",
+      "title": "Reducción de capital con adjudicación de inmuebles",
+      "excerpt": "Cuando una sociedad reparte un inmueble entre sus socios en una reducción de capital o disolución, hay un impuesto que conviene anticipar antes de firmar la operación, no después.",
+      "tags": ["Mercantil", "ITPAJD", "Planificación"],
+      "url": "https://www.linkedin.com/in/luis-de-francisco-morales-828704b8/recent-activity/all/"
+    },
+    {
+      "date": "7 ago 2026",
+      "title": "La simulación no se aplica a la carta según el ejercicio",
+      "excerpt": "STS 990/2026: la Inspección apreció simulación entre 2013 y 2016, pero solo trasladó sus efectos al Impuesto sobre Sociedades cuando el IRPF del socio ya no podía regularizarse. El Supremo rechaza esa asimetría — la misma calificación no puede aplicarse de forma selectiva según lo que recaude cada ejercicio.",
+      "tags": ["Simulación", "Tribunal Supremo", "IS"],
+      "url": "https://www.linkedin.com/in/luis-de-francisco-morales-828704b8/recent-activity/all/"
+    }
+  ],
+  "gaceta": [
+    { "label": "Gaceta Fiscal · Nº 458", "desc": "Artículo en la revista jurídico-tributaria", "year": "2025" },
+    { "label": "Gaceta Fiscal · Nº 447", "desc": "Artículo en la revista jurídico-tributaria", "year": "2024" },
+    { "label": "Gaceta Fiscal · Nº 421", "desc": "Artículo en la revista jurídico-tributaria", "year": "2021" },
+    { "label": "Gaceta Fiscal · Nº 419", "desc": "Artículo en la revista jurídico-tributaria", "year": "2021" }
+  ]
+}
