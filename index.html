@@ -12,6 +12,7 @@
   :root{
     --ink:#1E3350;
     --ink-2:#233A59;
+    --ink-deep:#16283F;
     --paper:#F1ECE0;
     --paper-dim:#AFB9C6;
     --paper-dim-2:#8593A3;
@@ -48,7 +49,13 @@
   @media (max-width:460px){ .nav-links{ gap:12px; } }
 
   /* ============ HERO ============ */
-  .hero{ padding:64px 0 56px; display:flex; gap:26px; align-items:flex-start; }
+  .hero-outer{
+    position:relative; overflow:hidden;
+    background:
+      radial-gradient(ellipse 700px 380px at 12% -10%, rgba(201,164,104,0.14), transparent 60%),
+      var(--ink);
+  }
+  .hero{ padding:68px 0 60px; display:flex; gap:26px; align-items:flex-start; position:relative; z-index:1; }
   .hero-photo{
     width:76px; height:76px; border-radius:50%; object-fit:cover; flex-shrink:0;
     border:1px solid var(--line-strong); filter:grayscale(1) contrast(1.05);
@@ -76,12 +83,29 @@
   @media (max-width:560px){ .hero{ flex-direction:column; padding-top:44px; } }
 
   /* ============ SECTION generic ============ */
-  section{ padding:8px 0 72px; }
-  .section-title{
-    font-family:'Fraunces', serif; font-weight:500; font-size:1.5rem; color:var(--paper);
-    padding-top:56px; margin-bottom:6px; border-top:1px solid var(--line);
+  .band{ padding:76px 0 84px; border-top:1px solid var(--line-strong); position:relative; }
+  .band-a{ background:var(--ink); }
+  .band-b{ background:var(--ink-2); }
+  .section-eyebrow{
+    font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.16em; text-transform:uppercase;
+    color:var(--gold); display:flex; align-items:center; gap:12px; margin-bottom:16px;
   }
-  .section-kicker{ color:var(--paper-dim); font-size:0.96rem; line-height:1.65; max-width:56ch; margin-bottom:36px; }
+  .section-eyebrow::before{ content:''; width:26px; height:1px; background:var(--gold); flex-shrink:0; }
+  .section-title{
+    font-family:'Fraunces', serif; font-weight:500; font-size:1.6rem; color:var(--paper); margin-bottom:8px;
+  }
+  .section-kicker{ color:var(--paper-dim); font-size:0.96rem; line-height:1.65; max-width:56ch; margin-bottom:40px; }
+
+  /* ============ CONTACT band (closing) ============ */
+  .band-contact{
+    background:
+      radial-gradient(ellipse 800px 420px at 50% -15%, rgba(201,164,104,0.13), transparent 62%),
+      var(--ink-deep);
+    border-top:2px solid var(--gold); text-align:center;
+  }
+  .band-contact .section-eyebrow{ justify-content:center; }
+  .band-contact .section-kicker{ margin-left:auto; margin-right:auto; }
+  .band-contact .contact-links{ justify-content:center; }
 
   /* ============ FEATURED POST ============ */
   .post-featured{
@@ -169,26 +193,30 @@
 </header>
 
 <main>
-  <section class="hero wrap">
-    <img class="hero-photo" src="assets/luis.png" alt="Luis de Francisco Morales">
-    <div class="hero-text">
-      <p class="eyebrow">Abogado fiscal · Madrid</p>
-      <h1 class="name">Luis de Francisco Morales</h1>
-      <p class="hero-bio">
-        <strong>19 años</strong> convirtiendo normativa compleja en decisiones claras: IRPF, Patrimonio,
-        Sociedades y fiscalidad patrimonial. Diez de ellos al frente de la dirección editorial de
-        <em>Gaceta Fiscal</em>. Aquí comparto, casi a diario, análisis breve de doctrina, jurisprudencia
-        y actualidad tributaria.
-      </p>
-      <div class="hero-actions">
-        <a class="btn btn-gold" href="./cv.pdf" target="_blank" rel="noopener">Descargar CV</a>
-        <a class="btn btn-ghost" href="https://www.linkedin.com/in/luis-de-francisco-morales-828704b8" target="_blank" rel="noopener">LinkedIn ↗</a>
+  <section class="hero-outer">
+    <div class="hero wrap">
+      <img class="hero-photo" src="assets/luis.png" alt="Luis de Francisco Morales">
+      <div class="hero-text">
+        <p class="eyebrow">Abogado fiscal · Madrid</p>
+        <h1 class="name">Luis de Francisco Morales</h1>
+        <p class="hero-bio">
+          <strong>19 años</strong> convirtiendo normativa compleja en decisiones claras: IRPF, Patrimonio,
+          Sociedades y fiscalidad patrimonial. Diez de ellos al frente de la dirección editorial de
+          <em>Gaceta Fiscal</em>. Aquí comparto, casi a diario, análisis breve de doctrina, jurisprudencia
+          y actualidad tributaria.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-gold" href="./cv.pdf" target="_blank" rel="noopener">Descargar CV</a>
+          <a class="btn btn-ghost" href="https://www.linkedin.com/in/luis-de-francisco-morales-828704b8" target="_blank" rel="noopener">LinkedIn ↗</a>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- ===== ARTÍCULOS ===== -->
-  <section class="wrap" id="articulos">
+  <section class="band band-b" id="articulos">
+    <div class="wrap">
+    <p class="section-eyebrow">01 · Lo último</p>
     <h2 class="section-title">Artículos</h2>
     <p class="section-kicker">La misma disciplina de actualización que aplico en cada expediente, en formato breve.</p>
 
@@ -204,10 +232,13 @@
     <div class="more-link">
       <a class="btn btn-ghost" href="https://www.linkedin.com/in/luis-de-francisco-morales-828704b8/recent-activity/all/" target="_blank" rel="noopener">Ver más en LinkedIn ↗</a>
     </div>
+    </div>
   </section>
 
   <!-- ===== SOBRE MÍ ===== -->
-  <section class="wrap" id="sobre-mi">
+  <section class="band band-a" id="sobre-mi">
+    <div class="wrap">
+    <p class="section-eyebrow">02 · Trayectoria</p>
     <h2 class="section-title">Sobre mí</h2>
 
     <p class="stat-line">
@@ -263,15 +294,19 @@
         </ul>
       </div>
     </div>
+    </div>
   </section>
 
   <!-- ===== CONTACTO ===== -->
-  <section class="wrap" id="contacto">
+  <section class="band band-contact" id="contacto">
+    <div class="wrap">
+    <p class="section-eyebrow">03 · A la firma</p>
     <h2 class="section-title">Contacto</h2>
     <p class="section-kicker">Quedo a su disposición para ampliar cualquier información sobre mi trayectoria profesional.</p>
     <div class="contact-links">
       <a class="btn btn-gold" href="https://www.linkedin.com/in/luis-de-francisco-morales-828704b8" target="_blank" rel="noopener">LinkedIn ↗</a>
       <a class="btn btn-ghost" href="./cv.pdf" target="_blank" rel="noopener">Descargar CV completo ↓</a>
+    </div>
     </div>
   </section>
 </main>
