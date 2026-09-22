@@ -73,21 +73,40 @@
     display:flex; flex-direction:column; align-items:center; justify-content:center;
     gap:22px; padding:92px 16px 40px; perspective:2600px;
   }
+  .book-wrap{ position:relative; width:var(--book-w); height:var(--book-h); }
+  .ribbon{
+    position:absolute; bottom:-24px; right:70px; width:15px; height:78px; z-index:0; pointer-events:none;
+    background:linear-gradient(180deg, var(--gold-dim), var(--gold) 55%, var(--gold-bright));
+    clip-path:polygon(0 0, 100% 0, 100% 78%, 50% 100%, 0 78%);
+    box-shadow:1px 3px 8px rgba(0,0,0,0.4);
+  }
   .book{
-    position:relative; width:var(--book-w); height:var(--book-h);
+    position:relative; z-index:1; width:100%; height:100%;
     transform-style:preserve-3d; overflow:hidden; border-radius:3px;
     box-shadow:0 40px 70px rgba(5,10,20,0.55), 0 10px 24px rgba(5,10,20,0.4);
   }
   .book::before{
-    /* sombra de lomo / encuadernación */
+    /* sombra de lomo cosido */
     content:''; position:absolute; top:0; bottom:0; left:0; width:54px; z-index:900; pointer-events:none;
-    background:linear-gradient(90deg, rgba(0,0,0,0.42), transparent);
+    background:
+      linear-gradient(90deg, rgba(0,0,0,0.42), transparent),
+      repeating-linear-gradient(180deg, var(--gold-dim) 0 4px, transparent 4px 13px);
+    background-size:100% 100%, 2px 13px;
+    background-position:0 0, 11px 6px;
+    background-repeat:no-repeat, repeat-y;
   }
-  .book::after{
-    /* canto de páginas dorado a la derecha */
-    content:''; position:absolute; top:6px; bottom:6px; right:0; width:7px; z-index:901; pointer-events:none;
+  .gilt{ position:absolute; z-index:901; pointer-events:none; box-shadow:0 0 3px rgba(0,0,0,0.3) inset; }
+  .gilt-right{
+    top:6px; bottom:6px; right:0; width:7px;
     background:repeating-linear-gradient(180deg, #8A6F45 0px, #C9A468 1.5px, #E4C48D 3px);
-    box-shadow:-1px 0 3px rgba(0,0,0,0.3) inset;
+  }
+  .gilt-top{
+    top:0; left:54px; right:7px; height:6px;
+    background:repeating-linear-gradient(90deg, #8A6F45 0px, #C9A468 1.5px, #E4C48D 3px);
+  }
+  .gilt-bottom{
+    bottom:0; left:54px; right:7px; height:6px;
+    background:repeating-linear-gradient(90deg, #8A6F45 0px, #C9A468 1.5px, #E4C48D 3px);
   }
 
   .page{
@@ -109,6 +128,9 @@
       radial-gradient(ellipse 640px 420px at 20% -10%, rgba(201,164,104,0.2), transparent 60%),
       var(--ink);
     color:var(--paper);
+  }
+  .page-front::before{
+    content:''; position:absolute; inset:15px; border:1px solid rgba(201,164,104,0.16); pointer-events:none; z-index:1;
   }
   .page-back{
     transform:rotateY(180deg);
@@ -306,7 +328,12 @@
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 18l6-6-6-6"/></svg>
   </button>
 
+  <div class="book-wrap">
+  <div class="ribbon"></div>
   <div class="book" id="book">
+    <div class="gilt gilt-right"></div>
+    <div class="gilt gilt-top"></div>
+    <div class="gilt gilt-bottom"></div>
 
     <!-- FOL. 0 — PORTADA -->
     <div class="page" data-i="0">
@@ -342,7 +369,8 @@
       <div class="page-face page-front">
         <div class="page-inner">
           <p class="kicker">Índice</p>
-          <h2 class="folio-title">Contenido del <em>expediente</em></h2>
+          <h2 class="folio-title">Luis de Francisco <em>Morales</em></h2>
+          <p class="lead" style="margin-top:-10px; margin-bottom:30px;">Abogado Fiscal Senior · Madrid</p>
           <div class="toc-list">
             <button class="toc-row" data-goto="2"><span class="toc-num">I.</span><span class="t">Sobre mí</span><span class="dots"></span><span class="fnum">Fol. 02</span></button>
             <button class="toc-row" data-goto="3"><span class="toc-num">II.</span><span class="t">Trayectoria profesional</span><span class="dots"></span><span class="fnum">Fol. 03</span></button>
@@ -525,6 +553,7 @@
       <div class="page-face page-back"><div class="page-back-deco"><div class="ring"><span>LFM</span></div><small>Fin del expediente</small></div></div>
     </div>
 
+  </div>
   </div>
 
   <div class="folio-indicator">
