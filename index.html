@@ -3,354 +3,634 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Luis de Francisco Morales — Abogado Fiscal</title>
-<meta name="description" content="Blog de análisis fiscal de Luis de Francisco Morales. Abogado fiscal en Madrid, 19+ años en IRPF, Patrimonio, Sociedades y fiscalidad patrimonial.">
+<title>Luis de Francisco Morales — Abogado Fiscal Senior</title>
+<meta name="description" content="Expediente profesional interactivo de Luis de Francisco Morales, abogado fiscal senior en Madrid. 19+ años en IRPF, Patrimonio, Sociedades y fiscalidad patrimonial.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
     --ink:#1E3350;
     --ink-2:#233A59;
-    --ink-deep:#16283F;
+    --ink-3:#2C4670;
+    --ink-deep-solid:#16283F;
+    --ink-verso:#1A2C46;
     --paper:#F1ECE0;
     --paper-dim:#AFB9C6;
     --paper-dim-2:#8593A3;
     --gold:#C9A468;
     --gold-bright:#E4C48D;
+    --gold-dim:#8A6F45;
     --line: rgba(241,236,224,0.14);
     --line-strong: rgba(241,236,224,0.26);
+    --book-w: min(680px, 92vw);
+    --book-h: min(780px, 84svh);
   }
   *{ box-sizing:border-box; margin:0; padding:0; }
   html{ scroll-behavior:smooth; }
   body{
-    background:var(--ink);
+    background:var(--ink-deep-solid);
     color:var(--paper);
     font-family:'Inter', sans-serif;
     -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
   }
   ::selection{ background:var(--gold); color:var(--ink); }
   a{ color:inherit; }
   img{ max-width:100%; display:block; }
+  button{ font:inherit; cursor:pointer; background:none; border:none; color:inherit; }
 
-  .wrap{ max-width:760px; margin:0 auto; padding:0 28px; }
-
-  /* ============ HEADER ============ */
-  header{
-    position:sticky; top:0; z-index:50;
-    background:rgba(30,51,80,0.88); backdrop-filter:blur(8px);
-    border-bottom:1px solid var(--line);
+  .stage-bg{
+    position:fixed; inset:0; z-index:0; pointer-events:none;
+    background-image:
+      repeating-linear-gradient(180deg, transparent, transparent 39px, rgba(241,236,224,0.05) 40px),
+      radial-gradient(ellipse 900px 520px at 18% -8%, rgba(201,164,104,0.16), transparent 60%),
+      radial-gradient(ellipse 700px 460px at 88% 108%, rgba(201,164,104,0.09), transparent 60%);
   }
-  .nav{ max-width:760px; margin:0 auto; padding:18px 28px; display:flex; align-items:center; justify-content:space-between; gap:12px 20px; flex-wrap:wrap; }
-  .nav-mark{ font-family:'Fraunces', serif; font-style:italic; font-weight:500; font-size:1.05rem; text-decoration:none; color:var(--paper); white-space:nowrap; }
-  .nav-links{ display:flex; gap:18px; }
-  .nav-links a{ font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:0.07em; text-decoration:none; color:var(--paper-dim); text-transform:uppercase; transition:color .2s ease; white-space:nowrap; }
-  .nav-links a:hover{ color:var(--gold-bright); }
-  @media (max-width:460px){ .nav-links{ gap:12px; } }
 
-  /* ============ HERO ============ */
-  .hero-outer{
-    position:relative; overflow:hidden;
+  /* ============ TOP BAR (utilidad rápida) ============ */
+  .topbar{
+    position:fixed; top:0; left:0; right:0; z-index:80;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 22px; gap:12px;
+    background:linear-gradient(180deg, rgba(18,33,53,0.85), transparent);
+  }
+  .brand{ font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.12em; color:var(--gold-bright); text-decoration:none; text-transform:uppercase; white-space:nowrap; }
+  .topbar-links{ display:flex; gap:10px; }
+  .pill{
+    font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:0.06em; text-transform:uppercase;
+    padding:8px 13px; border-radius:20px; text-decoration:none; border:1px solid var(--line-strong);
+    color:var(--paper-dim); transition:all .2s ease; white-space:nowrap;
+  }
+  .pill:hover{ border-color:var(--gold); color:var(--gold-bright); }
+  .pill-gold{ background:var(--gold); color:var(--ink); border-color:var(--gold); font-weight:500; }
+  .pill-gold:hover{ background:var(--gold-bright); border-color:var(--gold-bright); color:var(--ink); }
+  @media (max-width:520px){ .brand{ font-size:9.5px; } .pill{ padding:7px 10px; font-size:9.5px; } }
+
+  /* ============ ESCENA DEL LIBRO ============ */
+  .book-scene{
+    position:relative; z-index:1; min-height:100svh;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:22px; padding:92px 16px 40px; perspective:2600px;
+  }
+  .book{
+    position:relative; width:var(--book-w); height:var(--book-h);
+    transform-style:preserve-3d; overflow:hidden; border-radius:3px;
+    box-shadow:0 40px 70px rgba(5,10,20,0.55), 0 10px 24px rgba(5,10,20,0.4);
+  }
+  .book::before{
+    /* sombra de lomo / encuadernación */
+    content:''; position:absolute; top:0; bottom:0; left:0; width:54px; z-index:900; pointer-events:none;
+    background:linear-gradient(90deg, rgba(0,0,0,0.42), transparent);
+  }
+  .book::after{
+    /* canto de páginas dorado a la derecha */
+    content:''; position:absolute; top:6px; bottom:6px; right:0; width:7px; z-index:901; pointer-events:none;
+    background:repeating-linear-gradient(180deg, #8A6F45 0px, #C9A468 1.5px, #E4C48D 3px);
+    box-shadow:-1px 0 3px rgba(0,0,0,0.3) inset;
+  }
+
+  .page{
+    position:absolute; inset:0;
+    transform-style:preserve-3d; transform-origin:left center;
+    transition:transform .95s cubic-bezier(.645,.045,.355,1);
+  }
+  .page.flipped{ transform:rotateY(-178deg); }
+  .page.no-anim{ transition:none; }
+
+  .page-face{
+    position:absolute; inset:0; backface-visibility:hidden; -webkit-backface-visibility:hidden;
+    border-radius:3px; overflow:hidden;
+    box-shadow:0 0 0 1px rgba(0,0,0,0.25), 0 18px 40px -18px rgba(0,0,0,0.5);
+  }
+  .page-front{
     background:
-      radial-gradient(ellipse 700px 380px at 12% -10%, rgba(201,164,104,0.14), transparent 60%),
+      linear-gradient(115deg, rgba(0,0,0,0.18), transparent 30%),
+      radial-gradient(ellipse 640px 420px at 20% -10%, rgba(201,164,104,0.2), transparent 60%),
       var(--ink);
+    color:var(--paper);
   }
-  .hero{ padding:68px 0 60px; display:flex; gap:26px; align-items:flex-start; position:relative; z-index:1; }
-  .hero-photo{
-    width:76px; height:76px; border-radius:50%; object-fit:cover; flex-shrink:0;
-    border:1px solid var(--line-strong); filter:grayscale(1) contrast(1.05);
+  .page-back{
+    transform:rotateY(180deg);
+    background:
+      linear-gradient(-115deg, rgba(0,0,0,0.22), transparent 30%),
+      var(--ink-verso);
+    display:flex; align-items:center; justify-content:center;
   }
-  .eyebrow{
-    font-family:'IBM Plex Mono', monospace; font-size:11.5px; letter-spacing:0.14em; text-transform:uppercase;
-    color:var(--gold); margin-bottom:10px;
+  .page-back-deco{ text-align:center; opacity:0.85; }
+  .page-back-deco .ring{
+    width:74px; height:74px; margin:0 auto 14px; border-radius:50%;
+    border:1px solid var(--line-strong); display:flex; align-items:center; justify-content:center;
   }
-  h1.name{
-    font-family:'Fraunces', serif; font-weight:500; font-style:italic;
-    font-size:clamp(1.7rem, 4vw, 2.3rem); line-height:1.1; color:var(--paper); margin-bottom:16px;
+  .page-back-deco .ring span{ font-family:'Fraunces', serif; font-style:italic; font-weight:500; font-size:1.3rem; color:var(--gold-bright); }
+  .page-back-deco small{ font-family:'IBM Plex Mono', monospace; font-size:9.5px; letter-spacing:0.18em; text-transform:uppercase; color:var(--paper-dim-2); }
+
+  .page-inner{ position:absolute; inset:0; padding:52px 40px 60px; overflow-y:auto; }
+  .page-inner::-webkit-scrollbar{ width:6px; }
+  .page-inner::-webkit-scrollbar-thumb{ background:var(--line-strong); border-radius:4px; }
+  .scroll-fade{ position:absolute; left:0; right:0; bottom:0; height:34px; pointer-events:none; background:linear-gradient(180deg, transparent, var(--ink)); }
+
+  .page-foot{
+    position:absolute; bottom:18px; right:26px; z-index:2;
+    font-family:'IBM Plex Mono', monospace; font-size:9.5px; letter-spacing:0.14em; text-transform:uppercase;
+    color:var(--paper-dim-2);
   }
-  .hero-bio{ font-size:1rem; line-height:1.7; color:var(--paper-dim); max-width:58ch; }
-  .hero-bio strong{ color:var(--paper); font-weight:500; }
-  .hero-actions{ margin-top:22px; display:flex; gap:12px; flex-wrap:wrap; }
+
+  .corner{
+    position:absolute; bottom:14px; z-index:3; width:38px; height:38px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center; color:var(--gold);
+    border:1px solid var(--line-strong); background:rgba(255,255,255,0.05);
+    transition:transform .2s ease, background .2s ease; backdrop-filter:blur(2px);
+  }
+  .corner:hover{ transform:scale(1.08); background:var(--gold); color:var(--ink); }
+  .corner svg{ width:15px; height:15px; }
+  .corner-next{ right:14px; }
+  .corner-prev{ left:14px; }
+
+  /* ============ NAV externa ============ */
+  .nav-arrow{
+    position:absolute; top:50%; transform:translateY(-50%); z-index:70;
+    width:46px; height:46px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+    border:1px solid var(--line-strong); color:var(--paper); background:rgba(18,33,53,0.55); backdrop-filter:blur(3px);
+    transition:all .2s ease;
+  }
+  .nav-arrow:hover{ border-color:var(--gold); color:var(--gold-bright); }
+  .nav-arrow:disabled{ opacity:0.25; pointer-events:none; }
+  .nav-arrow svg{ width:18px; height:18px; }
+  .nav-prev-outer{ left:calc(50% - var(--book-w)/2 - 62px); }
+  .nav-next-outer{ right:calc(50% - var(--book-w)/2 - 62px); }
+  @media (max-width:900px){ .nav-arrow{ display:none; } }
+
+  .folio-indicator{
+    font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:0.14em; text-transform:uppercase;
+    color:var(--paper-dim-2); display:flex; align-items:center; gap:10px;
+  }
+  .folio-indicator .track{ width:120px; height:2px; background:var(--line-strong); position:relative; border-radius:2px; overflow:hidden; }
+  .folio-indicator .track i{ position:absolute; inset:0; background:var(--gold); border-radius:2px; transition:width .5s ease; }
+
+  /* ============ CONTENIDO TIPOGRÁFICO común ============ */
+  .kicker{ font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:var(--gold); display:flex; align-items:center; gap:10px; margin-bottom:18px; }
+  .kicker::before{ content:''; width:22px; height:1px; background:var(--gold); flex-shrink:0; }
+  h2.folio-title{ font-family:'Fraunces', serif; font-weight:500; font-size:clamp(1.5rem,4.4vw,2rem); line-height:1.12; margin-bottom:18px; }
+  h2.folio-title em{ font-style:italic; color:var(--gold-bright); }
+  .lead{ font-size:0.98rem; line-height:1.72; color:var(--paper-dim); max-width:52ch; margin-bottom:24px; }
+
+  /* ============ PORTADA ============ */
+  .cover{ display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; height:100%; padding:40px; position:relative; cursor:pointer; }
+  .cover-frame{ position:absolute; inset:18px; border:1px solid var(--line-strong); pointer-events:none; }
+  .cover-frame::before, .cover-frame::after{ content:''; position:absolute; width:26px; height:26px; border:1px solid var(--gold); }
+  .cover-frame::before{ top:-1px; left:-1px; border-right:none; border-bottom:none; }
+  .cover-frame::after{ bottom:-1px; right:-1px; border-left:none; border-top:none; }
+  .cover-seal{ width:120px; height:120px; margin-bottom:26px; }
+  .cover-eyebrow{ font-family:'IBM Plex Mono', monospace; font-size:11.5px; letter-spacing:0.22em; text-transform:uppercase; color:var(--gold); margin-bottom:18px; }
+  .cover h1{ font-family:'Fraunces', serif; font-weight:500; font-size:clamp(2rem,7vw,2.9rem); line-height:1.06; color:var(--paper); }
+  .cover h1 em{ font-style:italic; color:var(--gold-bright); font-weight:400; }
+  .cover-sub{ margin-top:20px; font-family:'IBM Plex Mono', monospace; font-size:11.5px; letter-spacing:0.1em; text-transform:uppercase; color:var(--paper-dim); }
+  .cover-cue{ position:absolute; bottom:34px; left:0; right:0; display:flex; flex-direction:column; align-items:center; gap:8px; font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:0.14em; text-transform:uppercase; color:var(--paper-dim-2); }
+  .cover-cue svg{ width:16px; height:16px; animation:bob 1.8s ease-in-out infinite; }
+  @keyframes bob{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(6px); } }
+
+  /* ============ ÍNDICE ============ */
+  .toc-list{ border-top:1px solid var(--line-strong); }
+  .toc-row{
+    display:flex; align-items:baseline; gap:16px; width:100%; text-align:left;
+    padding:17px 2px; border-bottom:1px solid var(--line-strong); transition:color .2s ease; color:var(--paper);
+  }
+  .toc-row:hover{ color:var(--gold-bright); }
+  .toc-num{ font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--gold); letter-spacing:0.06em; min-width:26px; }
+  .toc-row span.t{ font-family:'Fraunces', serif; font-size:1.08rem; }
+  .toc-row .dots{ flex:1; border-bottom:1px dotted var(--line-strong); transform:translateY(-5px); }
+  .toc-row .fnum{ font-family:'IBM Plex Mono', monospace; font-size:10.5px; color:var(--paper-dim-2); }
+
+  /* ============ SOBRE MÍ ============ */
+  .about-top{ display:flex; gap:20px; align-items:center; margin-bottom:22px; }
+  .about-photo{ width:72px; height:72px; border-radius:50%; object-fit:cover; border:1px solid var(--line-strong); filter:grayscale(1) contrast(1.05); flex-shrink:0; }
+  .stat-trio{ display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line-strong); border:1px solid var(--line-strong); margin:22px 0; }
+  .stat-cell{ background:var(--ink-2); padding:16px 12px; text-align:center; }
+  .stat-cell b{ display:block; font-family:'Fraunces', serif; font-weight:500; font-size:1.5rem; color:var(--gold-bright); }
+  .stat-cell span{ font-family:'IBM Plex Mono', monospace; font-size:9px; letter-spacing:0.05em; text-transform:uppercase; color:var(--paper-dim-2); }
+  .tags-row{ display:flex; flex-wrap:wrap; gap:8px; margin:22px 0 26px; }
+  .tag{ font-family:'IBM Plex Mono', monospace; font-size:10px; color:var(--paper-dim); border:1px solid var(--line-strong); padding:6px 11px; border-radius:2px; text-transform:uppercase; letter-spacing:0.03em; }
+  .about-actions{ display:flex; gap:12px; flex-wrap:wrap; }
   .btn{
     font-family:'IBM Plex Mono', monospace; font-size:11.5px; letter-spacing:0.06em; text-transform:uppercase;
-    padding:11px 18px; border-radius:2px; text-decoration:none; display:inline-flex; align-items:center; gap:8px;
+    padding:12px 19px; border-radius:2px; text-decoration:none; display:inline-flex; align-items:center; gap:9px;
     transition:all .2s ease; border:1px solid var(--line-strong);
   }
   .btn-gold{ background:var(--gold); color:var(--ink); border-color:var(--gold); font-weight:500; }
   .btn-gold:hover{ background:var(--gold-bright); border-color:var(--gold-bright); }
   .btn-ghost{ color:var(--paper); }
   .btn-ghost:hover{ border-color:var(--gold); color:var(--gold-bright); }
-  @media (max-width:560px){ .hero{ flex-direction:column; padding-top:44px; } }
 
-  /* ============ SECTION generic ============ */
-  .band{ padding:76px 0 84px; border-top:1px solid var(--line-strong); position:relative; }
-  .band-a{ background:var(--ink); }
-  .band-b{ background:var(--ink-2); }
-  .section-eyebrow{
-    font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.16em; text-transform:uppercase;
-    color:var(--gold); display:flex; align-items:center; gap:12px; margin-bottom:16px;
-  }
-  .section-eyebrow::before{ content:''; width:26px; height:1px; background:var(--gold); flex-shrink:0; }
-  .section-title{
-    font-family:'Fraunces', serif; font-weight:500; font-size:1.6rem; color:var(--paper); margin-bottom:8px;
-  }
-  .section-kicker{ color:var(--paper-dim); font-size:0.96rem; line-height:1.65; max-width:56ch; margin-bottom:40px; }
+  /* ============ TRAYECTORIA ============ */
+  .tl{ position:relative; padding-left:26px; }
+  .tl::before{ content:''; position:absolute; left:5px; top:6px; bottom:6px; width:1px; background:var(--line-strong); }
+  .tl-item{ position:relative; padding-bottom:26px; }
+  .tl-item:last-child{ padding-bottom:0; }
+  .tl-item::before{ content:''; position:absolute; left:-26px; top:5px; width:9px; height:9px; border-radius:50%; background:var(--ink); border:2px solid var(--gold); }
+  .tl-item h4{ font-family:'Fraunces', serif; font-weight:500; font-size:1.12rem; color:var(--paper); margin-bottom:4px; }
+  .tl-meta{ font-family:'IBM Plex Mono', monospace; font-size:10.5px; color:var(--gold-bright); text-transform:uppercase; letter-spacing:0.04em; margin-bottom:9px; }
+  .tl-item p{ font-size:0.92rem; line-height:1.62; color:var(--paper-dim); }
 
-  /* ============ CONTACT band (closing) ============ */
-  .band-contact{
-    background:
-      radial-gradient(ellipse 800px 420px at 50% -15%, rgba(201,164,104,0.13), transparent 62%),
-      var(--ink-deep);
-    border-top:2px solid var(--gold); text-align:center;
-  }
-  .band-contact .section-eyebrow{ justify-content:center; }
-  .band-contact .section-kicker{ margin-left:auto; margin-right:auto; }
-  .band-contact .contact-links{ justify-content:center; }
-
-  /* ============ FEATURED POST ============ */
-  .post-featured{
-    display:grid; grid-template-columns:130px 1fr; gap:24px; align-items:start;
-    padding:22px; margin-bottom:40px; border:1px solid var(--line-strong); background:var(--ink-2);
-    text-decoration:none; transition:border-color .2s ease, transform .2s ease;
-  }
-  .post-featured:hover{ border-color:var(--gold); transform:translateY(-2px); }
-  .post-featured img{ border:1px solid var(--line-strong); }
-  .pf-kicker{ font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:0.12em; text-transform:uppercase; color:var(--gold); margin-bottom:10px; }
-  .post-featured h3{ font-family:'Fraunces', serif; font-weight:500; font-size:1.4rem; color:var(--paper); line-height:1.2; margin-bottom:6px; }
-  .post-featured h3 em{ color:var(--gold-bright); font-style:italic; }
-  .pf-sub{ font-size:0.9rem; color:var(--paper-dim); line-height:1.5; }
-  @media (max-width:560px){ .post-featured{ grid-template-columns:1fr; } .post-featured img{ width:100px; } }
-
-  /* ============ POST LIST ============ */
-  .post-list{ border-top:1px solid var(--line); }
-  .post{ display:block; padding:26px 0; border-bottom:1px solid var(--line); text-decoration:none; }
-  .post-date{ font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--paper-dim-2); text-transform:uppercase; letter-spacing:0.06em; }
-  .post h3{ font-family:'Fraunces', serif; font-weight:500; font-size:1.18rem; color:var(--paper); line-height:1.3; margin:8px 0 8px; transition:color .2s ease; }
-  .post:hover h3{ color:var(--gold-bright); }
-  .post p{ font-size:0.95rem; color:var(--paper-dim); line-height:1.65; max-width:60ch; }
-  .post-tags{ margin-top:12px; display:flex; flex-wrap:wrap; gap:7px; }
-  .post-tag{ font-family:'IBM Plex Mono', monospace; font-size:9.5px; color:var(--paper-dim-2); border:1px solid var(--line-strong); padding:3px 8px; border-radius:2px; text-transform:uppercase; letter-spacing:0.03em; }
-
-  .post-list--compact{ margin-top:44px; }
-  .post-list--compact h4{
-    font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.12em; text-transform:uppercase;
-    color:var(--gold); margin-bottom:4px; padding-top:8px;
-  }
-  .row{ display:flex; justify-content:space-between; gap:16px; padding:14px 0; border-bottom:1px solid var(--line); font-size:0.92rem; }
-  .row .r-src{ color:var(--paper); }
-  .row .r-year{ font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--paper-dim-2); flex-shrink:0; }
-
-  .more-link{ margin-top:32px; }
-
-  /* ============ ABOUT ============ */
-  .about-block{ margin-bottom:26px; }
-  .about-block h4{ font-family:'Fraunces', serif; font-weight:500; font-size:1.05rem; color:var(--paper); margin-bottom:4px; }
-  .about-block .meta{ font-family:'IBM Plex Mono', monospace; font-size:10.5px; color:var(--gold-bright); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:8px; }
-  .about-block p{ color:var(--paper-dim); font-size:0.94rem; line-height:1.65; max-width:60ch; }
-
-  .stat-line{
-    display:flex; flex-wrap:wrap; gap:8px 0; font-family:'IBM Plex Mono', monospace; font-size:11.5px;
-    color:var(--paper-dim); letter-spacing:0.02em; margin-bottom:32px;
-  }
-  .stat-line b{ color:var(--gold-bright); font-weight:500; }
-  .stat-line .sep{ margin:0 12px; color:var(--line-strong); }
-
-  .tags-row{ display:flex; flex-wrap:wrap; gap:8px; margin:28px 0 8px; }
-  .tag{ font-family:'IBM Plex Mono', monospace; font-size:10.5px; color:var(--paper-dim); border:1px solid var(--line-strong); padding:6px 11px; border-radius:2px; text-transform:uppercase; letter-spacing:0.03em; }
-
-  .study-grid{ display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:8px; }
-  .study-grid h4{ font-family:'Fraunces', serif; font-weight:500; font-size:0.98rem; color:var(--paper); margin-bottom:10px; }
+  /* ============ FORMACIÓN ============ */
+  .study-grid{ display:flex; flex-direction:column; gap:26px; }
+  .study-grid h4{ font-family:'Fraunces', serif; font-weight:500; font-size:1.02rem; color:var(--paper); margin-bottom:10px; }
   .study-list{ list-style:none; }
-  .study-list li{ font-size:0.9rem; color:var(--paper-dim); padding:8px 0; border-top:1px solid var(--line); }
+  .study-list li{ font-size:0.92rem; padding:10px 0; border-top:1px solid var(--line); display:flex; justify-content:space-between; gap:12px; align-items:baseline; }
   .study-list li:first-child{ border-top:none; }
-  .study-list li b{ color:var(--paper); font-weight:500; display:block; }
-  .study-list li span{ font-family:'IBM Plex Mono', monospace; font-size:10px; color:var(--paper-dim-2); }
-  @media (max-width:560px){ .study-grid{ grid-template-columns:1fr; gap:28px; } }
+  .study-list li b{ font-weight:500; }
+  .study-list li span{ font-family:'IBM Plex Mono', monospace; font-size:9.5px; color:var(--paper-dim-2); white-space:nowrap; }
+  .degree-line b{ font-family:'Fraunces', serif; font-style:italic; font-weight:600; font-size:1.5rem; color:var(--gold-bright)!important; display:block; }
 
-  /* ============ CONTACT ============ */
-  .contact-links{ display:flex; flex-wrap:wrap; gap:12px; }
+  /* ============ PUBLICACIONES ============ */
+  .pub-feature{ display:flex; gap:20px; align-items:flex-start; padding:18px; border:1px solid var(--line); background:var(--ink-2); text-decoration:none; margin-bottom:26px; transition:border-color .2s ease; }
+  .pub-feature:hover{ border-color:var(--gold); }
+  .pub-feature img{ width:92px; border:1px solid var(--line-strong); flex-shrink:0; }
+  .pub-feature .pf-kicker{ font-family:'IBM Plex Mono', monospace; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:var(--gold); margin-bottom:8px; }
+  .pub-feature h3{ font-family:'Fraunces', serif; font-weight:500; font-size:1.16rem; color:var(--paper); line-height:1.2; margin-bottom:6px; }
+  .pub-feature h3 em{ font-style:italic; color:var(--gold-bright); }
+  .pub-feature p{ font-size:0.87rem; color:var(--paper-dim); line-height:1.5; }
+  .gaceta-rows .row{ display:flex; justify-content:space-between; gap:14px; padding:12px 0; border-bottom:1px solid var(--line); font-size:0.88rem; color:var(--paper-dim); }
+  .gaceta-rows .row .yr{ font-family:'IBM Plex Mono', monospace; font-size:10.5px; color:var(--paper-dim-2); flex-shrink:0; }
 
-  footer{
-    text-align:center; padding:32px 28px 40px; border-top:1px solid var(--line);
-    font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:0.06em; color:var(--paper-dim-2); text-transform:uppercase;
+  /* ============ REFLEXIONES ============ */
+  .li-card{ border-bottom:1px solid var(--line); padding:18px 0; }
+  .li-card:first-child{ padding-top:0; }
+  .li-date{ font-family:'IBM Plex Mono', monospace; font-size:10px; color:var(--gold); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:8px; }
+  .li-card h4{ font-family:'Fraunces', serif; font-weight:500; font-size:1.04rem; margin-bottom:7px; line-height:1.28; color:var(--paper); }
+  .li-card p{ font-size:0.87rem; line-height:1.58; color:var(--paper-dim); }
+  .li-tags{ display:flex; flex-wrap:wrap; gap:6px; margin-top:10px; }
+  .li-tag{ font-family:'IBM Plex Mono', monospace; font-size:9px; color:var(--paper-dim-2); border:1px solid var(--line-strong); padding:3px 8px; border-radius:2px; text-transform:uppercase; }
+
+  /* ============ CONTACTO / CIERRE ============ */
+  .close-quote{ font-family:'Fraunces', serif; font-style:italic; font-weight:400; font-size:clamp(1.15rem,3.6vw,1.5rem); line-height:1.5; color:var(--paper); margin-bottom:34px; }
+  .close-quote span{ color:var(--gold-bright); }
+  .contact-grid{ display:flex; flex-direction:column; gap:1px; background:var(--line); border:1px solid var(--line); margin-bottom:28px; }
+  .contact-item{ background:var(--ink-2); padding:18px 20px; text-decoration:none; display:flex; align-items:center; justify-content:space-between; gap:10px; transition:background .2s ease; }
+  .contact-item:hover{ background:var(--ink); }
+  .contact-item .k{ font-family:'IBM Plex Mono', monospace; font-size:9.5px; color:var(--gold); text-transform:uppercase; letter-spacing:0.1em; display:block; margin-bottom:4px; }
+  .contact-item .v{ font-size:0.98rem; color:var(--paper); font-weight:500; }
+  .close-seal{ text-align:center; margin-top:6px; font-family:'IBM Plex Mono', monospace; font-size:9.5px; letter-spacing:0.1em; text-transform:uppercase; color:var(--paper-dim-2); }
+
+  @media (max-width:640px){
+    .page-inner{ padding:44px 26px 52px; }
+    .about-top{ flex-direction:column; align-items:flex-start; text-align:left; }
+    .pub-feature{ flex-direction:column; }
+    .pub-feature img{ width:100px; }
   }
 
-  @media (prefers-reduced-motion: reduce){ *{ scroll-behavior:auto !important; } }
+  @media (prefers-reduced-motion: reduce){
+    .page{ transition-duration:0.01ms !important; }
+    .cover-cue svg{ animation:none; }
+  }
   :focus-visible{ outline:2px solid var(--gold-bright); outline-offset:3px; }
 </style>
 </head>
 <body>
 
-<header>
-  <nav class="nav">
-    <a href="#" class="nav-mark">L. de Francisco Morales</a>
-    <div class="nav-links">
-      <a href="#articulos">Artículos</a>
-      <a href="#sobre-mi">Sobre mí</a>
-      <a href="#contacto">Contacto</a>
-    </div>
-  </nav>
-</header>
+<div class="stage-bg"></div>
 
-<main>
-  <section class="hero-outer">
-    <div class="hero wrap">
-      <img class="hero-photo" src="assets/luis.png" alt="Luis de Francisco Morales">
-      <div class="hero-text">
-        <p class="eyebrow">Abogado fiscal · Madrid</p>
-        <h1 class="name">Luis de Francisco Morales</h1>
-        <p class="hero-bio">
-          <strong>19 años</strong> convirtiendo normativa compleja en decisiones claras: IRPF, Patrimonio,
-          Sociedades y fiscalidad patrimonial. Diez de ellos al frente de la dirección editorial de
-          <em>Gaceta Fiscal</em>. Aquí comparto, casi a diario, análisis breve de doctrina, jurisprudencia
-          y actualidad tributaria.
-        </p>
-        <div class="hero-actions">
-          <a class="btn btn-gold" href="./cv.pdf" target="_blank" rel="noopener">Descargar CV</a>
-          <a class="btn btn-ghost" href="https://www.linkedin.com/in/luis-de-francisco-morales-828704b8" target="_blank" rel="noopener">LinkedIn ↗</a>
+<div class="topbar">
+  <a href="#" class="brand">L. de Francisco Morales</a>
+  <div class="topbar-links">
+    <a class="pill" href="https://www.linkedin.com/in/luis-de-francisco-morales-828704b8" target="_blank" rel="noopener">LinkedIn ↗</a>
+    <a class="pill pill-gold" href="./cv.pdf" target="_blank" rel="noopener">CV ↓</a>
+  </div>
+</div>
+
+<main class="book-scene">
+  <button class="nav-arrow nav-prev-outer" id="prevOuter" aria-label="Página anterior">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M15 18l-6-6 6-6"/></svg>
+  </button>
+  <button class="nav-arrow nav-next-outer" id="nextOuter" aria-label="Página siguiente">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 18l6-6-6-6"/></svg>
+  </button>
+
+  <div class="book" id="book">
+
+    <!-- FOL. 0 — PORTADA -->
+    <div class="page" data-i="0">
+      <div class="page-face page-front">
+        <div class="cover" id="coverOpen">
+          <div class="cover-frame"></div>
+          <svg class="cover-seal" viewBox="0 0 200 200">
+            <circle cx="100" cy="100" r="92" fill="none" stroke="#C9A468" stroke-width="1.4"/>
+            <circle cx="100" cy="100" r="80" fill="none" stroke="#C9A468" stroke-width="1"/>
+            <path id="sealcircle" d="M100,20 A80,80 0 1,1 99.9,20" fill="none"/>
+            <text font-family="IBM Plex Mono, monospace" font-size="9" fill="#E4C48D" letter-spacing="2">
+              <textPath href="#sealcircle" startOffset="2%">FISCAL · CONTABLE · PATRIMONIAL · EDITORIAL ·</textPath>
+            </text>
+            <text x="100" y="94" text-anchor="middle" font-family="Fraunces, serif" font-size="28" fill="#F1ECE0">19+</text>
+            <text x="100" y="117" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="8.5" fill="#AEB8C4" letter-spacing="1.5">AÑOS EJERCICIO</text>
+          </svg>
+          <p class="cover-eyebrow">Expediente profesional</p>
+          <h1>Luis de Francisco<br><em>Morales</em></h1>
+          <p class="cover-sub">Abogado Fiscal Senior · Madrid</p>
+          <div class="cover-cue">
+            <span>Abrir expediente</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 5v14m0 0l-5-5m5 5l5-5"/></svg>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- ===== ARTÍCULOS ===== -->
-  <section class="band band-b" id="articulos">
-    <div class="wrap">
-    <p class="section-eyebrow">01 · Lo último</p>
-    <h2 class="section-title">Artículos</h2>
-    <p class="section-kicker">La misma disciplina de actualización que aplico en cada expediente, en formato breve.</p>
-
-    <div id="post-featured-slot"></div>
-
-    <div class="post-list" id="post-list"></div>
-
-    <div class="post-list--compact" id="gaceta-slot" hidden>
-      <h4>También en Gaceta Fiscal</h4>
-      <div id="gaceta-rows"></div>
-    </div>
-
-    <div class="more-link">
-      <a class="btn btn-ghost" href="https://www.linkedin.com/in/luis-de-francisco-morales-828704b8/recent-activity/all/" target="_blank" rel="noopener">Ver más en LinkedIn ↗</a>
-    </div>
-    </div>
-  </section>
-
-  <!-- ===== SOBRE MÍ ===== -->
-  <section class="band band-a" id="sobre-mi">
-    <div class="wrap">
-    <p class="section-eyebrow">02 · Trayectoria</p>
-    <h2 class="section-title">Sobre mí</h2>
-
-    <p class="stat-line">
-      <b>19 años</b> de ejercicio ininterrumpido<span class="sep">·</span>
-      <b>10 años</b> dirigiendo <em>Gaceta Fiscal</em><span class="sep">·</span>
-      <b>5</b> especialidades tributarias
-    </p>
-
-    <div class="about-block">
-      <h4>Legal Mavens</h4>
-      <div class="meta">2026 · Abogado Senior, Departamento Fiscal</div>
-      <p>Liquidación y revisión de obligaciones tributarias de sociedades, personas físicas y patrimonios familiares. Asesoramiento fiscal recurrente, informes técnicos y planificación patrimonial.</p>
-    </div>
-
-    <div class="about-block">
-      <h4>Grupo de Empresas Díaz Arias</h4>
-      <div class="meta">2006 — 2025 · Bufete Díaz-Arias / GESAF / FAT</div>
-      <p>Asesoramiento fiscal y contable a todo tipo de clientes. Dirección de expedientes tributarios en sede administrativa (gestión, inspección, recaudación y revisión), económico-administrativa y judicial. Confección y liquidación de IS, IRPF, ITPAJD, ISD y tributos locales. Equipo jurídico de GESAF y del Foro de Abogados Tributaristas (FAT).</p>
-    </div>
-
-    <div class="about-block">
-      <h4>Gaceta Fiscal</h4>
-      <div class="meta">2015 — 2025 · Dirección y coordinación editorial</div>
-      <p>Elaboración, coordinación y dirección de esta revista jurídico-tributaria de referencia, con seguimiento diario de las modificaciones legislativas autonómicas, estatales y europeas y de los pronunciamientos de la Administración y los tribunales. La misma disciplina de actualización que aplico hoy en cada expediente: primero entender el criterio de la Administración, después construir con rigor la posición del cliente.</p>
-    </div>
-
-    <div class="tags-row">
-      <span class="tag">IRPF</span>
-      <span class="tag">Impuesto sobre el Patrimonio</span>
-      <span class="tag">Impuesto sobre Sociedades</span>
-      <span class="tag">ITPAJD</span>
-      <span class="tag">ISD</span>
-      <span class="tag">Empresa familiar</span>
-      <span class="tag">Private client</span>
-      <span class="tag">Planificación patrimonial</span>
-    </div>
-
-    <div class="study-grid">
-      <div>
-        <h4>Universidad Autónoma de Madrid</h4>
-        <ul class="study-list">
-          <li><b>Doble Licenciatura, Derecho y ADE</b><span>1999 — 2006</span></li>
-        </ul>
-      </div>
-      <div>
-        <h4>Formación complementaria</h4>
-        <ul class="study-list">
-          <li><b>Gestoría fiscal, laboral y contable</b><span>CEF · 150h</span></li>
-          <li><b>Experto en financiación de empresas</b><span>170h</span></li>
-          <li><b>Registros contables</b><span>120h</span></li>
-          <li><b>Contratación laboral</b><span>64h</span></li>
-          <li><b>IA y Big Data</b><span>50h</span></li>
-        </ul>
+      <div class="page-face page-back">
+        <div class="page-back-deco"><div class="ring"><span>LFM</span></div><small>Confidencial</small></div>
       </div>
     </div>
-    </div>
-  </section>
 
-  <!-- ===== CONTACTO ===== -->
-  <section class="band band-contact" id="contacto">
-    <div class="wrap">
-    <p class="section-eyebrow">03 · A la firma</p>
-    <h2 class="section-title">Contacto</h2>
-    <p class="section-kicker">Quedo a su disposición para ampliar cualquier información sobre mi trayectoria profesional.</p>
-    <div class="contact-links">
-      <a class="btn btn-gold" href="https://www.linkedin.com/in/luis-de-francisco-morales-828704b8" target="_blank" rel="noopener">LinkedIn ↗</a>
-      <a class="btn btn-ghost" href="./cv.pdf" target="_blank" rel="noopener">Descargar CV completo ↓</a>
+    <!-- FOL. 1 — ÍNDICE -->
+    <div class="page" data-i="1">
+      <div class="page-face page-front">
+        <div class="page-inner">
+          <p class="kicker">Índice</p>
+          <h2 class="folio-title">Contenido del <em>expediente</em></h2>
+          <div class="toc-list">
+            <button class="toc-row" data-goto="2"><span class="toc-num">I.</span><span class="t">Sobre mí</span><span class="dots"></span><span class="fnum">Fol. 02</span></button>
+            <button class="toc-row" data-goto="3"><span class="toc-num">II.</span><span class="t">Trayectoria profesional</span><span class="dots"></span><span class="fnum">Fol. 03</span></button>
+            <button class="toc-row" data-goto="4"><span class="toc-num">III.</span><span class="t">Formación</span><span class="dots"></span><span class="fnum">Fol. 04</span></button>
+            <button class="toc-row" data-goto="5"><span class="toc-num">IV.</span><span class="t">Publicaciones</span><span class="dots"></span><span class="fnum">Fol. 05</span></button>
+            <button class="toc-row" data-goto="6"><span class="toc-num">V.</span><span class="t">Últimas reflexiones</span><span class="dots"></span><span class="fnum">Fol. 06</span></button>
+            <button class="toc-row" data-goto="7"><span class="toc-num">VI.</span><span class="t">Contacto</span><span class="dots"></span><span class="fnum">Fol. 07</span></button>
+          </div>
+        </div>
+        <div class="page-foot">FOL. 01</div>
+        <div class="corner corner-next" data-nav="next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 18l6-6-6-6"/></svg></div>
+      </div>
+      <div class="page-face page-back"><div class="page-back-deco"><div class="ring"><span>LFM</span></div><small>Confidencial</small></div></div>
     </div>
+
+    <!-- FOL. 2 — SOBRE MÍ -->
+    <div class="page" data-i="2">
+      <div class="page-face page-front">
+        <div class="page-inner">
+          <p class="kicker">I · Presentación</p>
+          <div class="about-top">
+            <img class="about-photo" src="assets/luis.png" alt="Luis de Francisco Morales">
+            <div>
+              <h2 class="folio-title" style="margin-bottom:4px;">Sobre <em>mí</em></h2>
+              <p style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:var(--paper-dim-2);">Abogado fiscal · Madrid</p>
+            </div>
+          </div>
+          <p class="lead">
+            <strong style="color:var(--paper); font-weight:500;">19 años</strong> convirtiendo normativa compleja en decisiones claras: IRPF, Patrimonio,
+            Sociedades y fiscalidad patrimonial. Diez de ellos al frente de la dirección editorial de
+            <em style="color:var(--gold-bright); font-style:italic;">Gaceta Fiscal</em>. Casi a diario comparto en LinkedIn análisis breve
+            de doctrina, jurisprudencia y actualidad tributaria — la misma disciplina de actualización que aplico en cada expediente.
+          </p>
+          <div class="stat-trio">
+            <div class="stat-cell"><b>19</b><span>Años ejercicio</span></div>
+            <div class="stat-cell"><b>10</b><span>Años Gaceta Fiscal</span></div>
+            <div class="stat-cell"><b>5</b><span>Especialidades</span></div>
+          </div>
+          <div class="tags-row">
+            <span class="tag">IRPF</span><span class="tag">Patrimonio</span><span class="tag">Sociedades</span>
+            <span class="tag">ITPAJD</span><span class="tag">ISD</span><span class="tag">Empresa familiar</span>
+            <span class="tag">Private client</span><span class="tag">Planificación patrimonial</span>
+          </div>
+          <div class="about-actions">
+            <a class="btn btn-gold" href="./cv.pdf" target="_blank" rel="noopener">Descargar CV</a>
+            <a class="btn btn-ghost" href="https://www.linkedin.com/in/luis-de-francisco-morales-828704b8" target="_blank" rel="noopener">LinkedIn ↗</a>
+          </div>
+        </div>
+        <div class="page-foot">FOL. 02</div>
+        <div class="corner corner-prev" data-nav="prev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M15 18l-6-6 6-6"/></svg></div>
+        <div class="corner corner-next" data-nav="next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 18l6-6-6-6"/></svg></div>
+      </div>
+      <div class="page-face page-back"><div class="page-back-deco"><div class="ring"><span>LFM</span></div><small>Confidencial</small></div></div>
     </div>
-  </section>
+
+    <!-- FOL. 3 — TRAYECTORIA -->
+    <div class="page" data-i="3">
+      <div class="page-face page-front">
+        <div class="page-inner">
+          <p class="kicker">II · Experiencia</p>
+          <h2 class="folio-title">Trayectoria <em>profesional</em></h2>
+          <div class="tl">
+            <div class="tl-item">
+              <h4>Legal Mavens</h4>
+              <div class="tl-meta">2026 · Abogado Senior, Departamento Fiscal</div>
+              <p>Liquidación y revisión de obligaciones tributarias de sociedades, personas físicas y patrimonios familiares. Asesoramiento fiscal recurrente, informes técnicos y planificación patrimonial.</p>
+            </div>
+            <div class="tl-item">
+              <h4>Grupo de Empresas Díaz Arias</h4>
+              <div class="tl-meta">2006 — 2025 · Bufete Díaz-Arias / GESAF / FAT</div>
+              <p>Asesoramiento fiscal y contable a todo tipo de clientes. Dirección de expedientes tributarios en sede administrativa (gestión, inspección, recaudación y revisión), económico-administrativa y judicial. Confección y liquidación de IS, IRPF, ITPAJD, ISD y tributos locales. Equipo jurídico de GESAF y del Foro de Abogados Tributaristas (FAT).</p>
+            </div>
+            <div class="tl-item">
+              <h4>Gaceta Fiscal</h4>
+              <div class="tl-meta">2015 — 2025 · Dirección y coordinación editorial</div>
+              <p>Elaboración, coordinación y dirección de esta revista jurídico-tributaria de referencia, con seguimiento diario de las modificaciones legislativas y de los pronunciamientos de la Administración y los tribunales. Primero entender el criterio de la Administración; después, construir con rigor la posición del cliente.</p>
+            </div>
+          </div>
+        </div>
+        <div class="scroll-fade"></div>
+        <div class="page-foot">FOL. 03</div>
+        <div class="corner corner-prev" data-nav="prev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M15 18l-6-6 6-6"/></svg></div>
+        <div class="corner corner-next" data-nav="next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 18l6-6-6-6"/></svg></div>
+      </div>
+      <div class="page-face page-back"><div class="page-back-deco"><div class="ring"><span>LFM</span></div><small>Confidencial</small></div></div>
+    </div>
+
+    <!-- FOL. 4 — FORMACIÓN -->
+    <div class="page" data-i="4">
+      <div class="page-face page-front">
+        <div class="page-inner">
+          <p class="kicker">III · Academia</p>
+          <h2 class="folio-title">Formación <em>académica y continua</em></h2>
+          <div class="study-grid">
+            <div>
+              <h4>Universidad Autónoma de Madrid</h4>
+              <ul class="study-list">
+                <li class="degree-line"><b>Doble Licenciatura, Derecho y ADE</b><span>1999 — 2006</span></li>
+              </ul>
+            </div>
+            <div>
+              <h4>Formación complementaria</h4>
+              <ul class="study-list">
+                <li><b>Gestoría fiscal, laboral y contable</b><span>CEF · 150h</span></li>
+                <li><b>Experto en financiación de empresas</b><span>170h</span></li>
+                <li><b>Registros contables</b><span>120h</span></li>
+                <li><b>Contratación laboral</b><span>64h</span></li>
+                <li><b>IA y Big Data</b><span>50h</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="page-foot">FOL. 04</div>
+        <div class="corner corner-prev" data-nav="prev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M15 18l-6-6 6-6"/></svg></div>
+        <div class="corner corner-next" data-nav="next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 18l6-6-6-6"/></svg></div>
+      </div>
+      <div class="page-face page-back"><div class="page-back-deco"><div class="ring"><span>LFM</span></div><small>Confidencial</small></div></div>
+    </div>
+
+    <!-- FOL. 5 — PUBLICACIONES -->
+    <div class="page" data-i="5">
+      <div class="page-face page-front">
+        <div class="page-inner">
+          <p class="kicker">IV · Divulgación</p>
+          <h2 class="folio-title">Publicaciones</h2>
+          <div id="pub-featured-slot"></div>
+          <div id="pub-gaceta-slot"></div>
+        </div>
+        <div class="scroll-fade"></div>
+        <div class="page-foot">FOL. 05</div>
+        <div class="corner corner-prev" data-nav="prev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M15 18l-6-6 6-6"/></svg></div>
+        <div class="corner corner-next" data-nav="next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 18l6-6-6-6"/></svg></div>
+      </div>
+      <div class="page-face page-back"><div class="page-back-deco"><div class="ring"><span>LFM</span></div><small>Confidencial</small></div></div>
+    </div>
+
+    <!-- FOL. 6 — ÚLTIMAS REFLEXIONES -->
+    <div class="page" data-i="6">
+      <div class="page-face page-front">
+        <div class="page-inner">
+          <p class="kicker">V · LinkedIn</p>
+          <h2 class="folio-title">Últimas <em>reflexiones</em></h2>
+          <p class="lead" style="margin-bottom:8px;">Casi a diario, análisis breve de doctrina, jurisprudencia y actualidad tributaria — prueba de que sigo en primera línea de la materia.</p>
+          <div id="li-list"></div>
+          <div class="about-actions" style="margin-top:8px;">
+            <a class="btn btn-ghost" href="https://www.linkedin.com/in/luis-de-francisco-morales-828704b8/recent-activity/all/" target="_blank" rel="noopener">Ver más en LinkedIn ↗</a>
+          </div>
+        </div>
+        <div class="scroll-fade"></div>
+        <div class="page-foot">FOL. 06</div>
+        <div class="corner corner-prev" data-nav="prev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M15 18l-6-6 6-6"/></svg></div>
+        <div class="corner corner-next" data-nav="next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 18l6-6-6-6"/></svg></div>
+      </div>
+      <div class="page-face page-back"><div class="page-back-deco"><div class="ring"><span>LFM</span></div><small>Confidencial</small></div></div>
+    </div>
+
+    <!-- FOL. 7 — CONTACTO / CIERRE -->
+    <div class="page" data-i="7">
+      <div class="page-face page-front">
+        <div class="page-inner">
+          <p class="kicker">VI · A la firma</p>
+          <h2 class="folio-title">Contacto</h2>
+          <p class="close-quote">
+            Quedo a su disposición para ampliar cualquier información sobre mi trayectoria profesional
+            y valorar <span>cómo mi experiencia puede encajar</span> con las necesidades de su equipo.
+          </p>
+          <div class="contact-grid">
+            <a class="contact-item" href="https://www.linkedin.com/in/luis-de-francisco-morales-828704b8" target="_blank" rel="noopener">
+              <div><span class="k">LinkedIn</span><span class="v">Ver perfil profesional</span></div><span>↗</span>
+            </a>
+            <a class="contact-item" href="./cv.pdf" target="_blank" rel="noopener">
+              <div><span class="k">Curriculum</span><span class="v">Descargar CV completo</span></div><span>↓</span>
+            </a>
+          </div>
+          <p class="close-seal">Madrid · Doble Licenciatura Derecho y ADE, UAM</p>
+        </div>
+        <div class="page-foot">FOL. 07</div>
+        <div class="corner corner-prev" data-nav="prev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M15 18l-6-6 6-6"/></svg></div>
+      </div>
+      <div class="page-face page-back"><div class="page-back-deco"><div class="ring"><span>LFM</span></div><small>Fin del expediente</small></div></div>
+    </div>
+
+  </div>
+
+  <div class="folio-indicator">
+    <span id="folioLabel">Cubierta</span>
+    <div class="track"><i id="folioBar"></i></div>
+  </div>
 </main>
 
-<footer>Madrid · Doble Licenciatura Derecho y ADE, UAM</footer>
-
 <script>
-  // Los artículos se cargan desde assets/posts.json — añadir uno nuevo ahí,
-  // no hace falta tocar este HTML. Ver README.md para instrucciones.
+  const pages = Array.from(document.querySelectorAll('.page'));
+  const total = pages.length;
+  let flippedCount = 0; // páginas ya volteadas; la página visible activa es pages[flippedCount]
+
+  const folioLabel = document.getElementById('folioLabel');
+  const folioBar = document.getElementById('folioBar');
+  const prevOuter = document.getElementById('prevOuter');
+  const nextOuter = document.getElementById('nextOuter');
+
+  // FOL. 01..07 numera los folios de contenido; la portada (índice 0) no cuenta como folio.
+  function render(){
+    pages.forEach((p,i)=>{
+      const isFlipped = i < flippedCount;
+      p.classList.toggle('flipped', isFlipped);
+      p.style.zIndex = isFlipped ? i : (1000 - i);
+    });
+    folioLabel.textContent = flippedCount === 0
+      ? 'Cubierta'
+      : `Fol. ${String(flippedCount).padStart(2,'0')} / ${String(total-1).padStart(2,'0')}`;
+    folioBar.style.width = ((flippedCount/(total-1))*100) + '%';
+    prevOuter.disabled = flippedCount === 0;
+    nextOuter.disabled = flippedCount >= total-1;
+  }
+
+  function next(){ if(flippedCount < total-1){ flippedCount++; render(); } }
+  function prev(){ if(flippedCount > 0){ flippedCount--; render(); } }
+  function goTo(i){ flippedCount = Math.max(0, Math.min(total-1, i)); render(); }
+
+  prevOuter.addEventListener('click', prev);
+  nextOuter.addEventListener('click', next);
+  document.getElementById('coverOpen').addEventListener('click', next);
+
+  document.querySelectorAll('[data-nav="next"]').forEach(el=>el.addEventListener('click', next));
+  document.querySelectorAll('[data-nav="prev"]').forEach(el=>el.addEventListener('click', prev));
+  document.querySelectorAll('.toc-row').forEach(el=>{
+    el.addEventListener('click', ()=>goTo(parseInt(el.dataset.goto,10)));
+  });
+
+  document.addEventListener('keydown', (e)=>{
+    if (e.key === 'ArrowRight') next();
+    if (e.key === 'ArrowLeft') prev();
+  });
+
+  const book = document.getElementById('book');
+  let touchX = 0, touchY = 0;
+  book.addEventListener('touchstart', (e)=>{
+    touchX = e.changedTouches[0].clientX;
+    touchY = e.changedTouches[0].clientY;
+  }, {passive:true});
+  book.addEventListener('touchend', (e)=>{
+    const dx = e.changedTouches[0].clientX - touchX;
+    const dy = e.changedTouches[0].clientY - touchY;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)){
+      if (dx < 0) next(); else prev();
+    }
+  }, {passive:true});
+
+  render();
+
+  // Contenido dinámico — se lee de assets/posts.json (ver README.md)
   fetch('assets/posts.json')
     .then(r => r.json())
-    .then(renderArticulos)
+    .then(renderContenidoDinamico)
     .catch(err => console.error('No se pudo cargar assets/posts.json:', err));
 
-  function renderArticulos(data){
-    const featuredSlot = document.getElementById('post-featured-slot');
+  function renderContenidoDinamico(data){
+    const fSlot = document.getElementById('pub-featured-slot');
     if (data.featured){
       const f = data.featured;
-      featuredSlot.innerHTML = `
-        <a class="post-featured" href="${f.url}" target="_blank" rel="noopener">
+      fSlot.innerHTML = `
+        <a class="pub-feature" href="${f.url}" target="_blank" rel="noopener">
           <img src="${f.cover}" alt="${(f.title || '').replace(/<[^>]+>/g,'')}">
           <div>
             <div class="pf-kicker">${f.kicker || ''}</div>
             <h3>${f.title || ''}</h3>
-            <p class="pf-sub">${f.excerpt || ''}</p>
+            <p>${f.excerpt || ''}</p>
           </div>
         </a>`;
     }
 
-    const list = document.getElementById('post-list');
-    list.innerHTML = (data.posts || []).map(p => `
-      <a class="post" href="${p.url}" target="_blank" rel="noopener">
-        <span class="post-date">${p.date}</span>
-        <h3>${p.title}</h3>
-        <p>${p.excerpt}</p>
-        <div class="post-tags">${(p.tags || []).map(t => `<span class="post-tag">${t}</span>`).join('')}</div>
-      </a>`).join('');
-
     const gaceta = data.gaceta || [];
     if (gaceta.length){
-      document.getElementById('gaceta-slot').hidden = false;
-      document.getElementById('gaceta-rows').innerHTML = gaceta.map(g => `
-        <div class="row"><span class="r-src">${g.label} — ${g.desc}</span><span class="r-year">${g.year}</span></div>`).join('');
+      document.getElementById('pub-gaceta-slot').innerHTML = `
+        <p class="kicker" style="margin-top:6px;">También en Gaceta Fiscal</p>
+        <div class="gaceta-rows">
+          ${gaceta.map(g => `<div class="row"><span>${g.label} — ${g.desc}</span><span class="yr">${g.year}</span></div>`).join('')}
+        </div>`;
     }
+
+    const list = document.getElementById('li-list');
+    list.innerHTML = (data.posts || []).slice(0,4).map(p => `
+      <div class="li-card">
+        <div class="li-date">${p.date}</div>
+        <h4>${p.title}</h4>
+        <p>${p.excerpt}</p>
+        <div class="li-tags">${(p.tags || []).map(t => `<span class="li-tag">${t}</span>`).join('')}</div>
+      </div>`).join('');
   }
 </script>
 
