@@ -6,6 +6,14 @@
     "cover": "assets/principe-fiscal-cover.jpg",
     "url": "assets/el-principe-fiscal.pdf"
   },
+  "articulos": [
+    {
+      "date": "30 sep 2026",
+      "title": "Real Decreto-ley 26/2026: la vivienda también cambia en lo fiscal",
+      "excerpt": "Qué cambia en IRPF (nueva reducción para el arrendador y vuelta de la deducción estatal por alquiler), IVA, IBI, SOCIMI y plusvalía municipal, y desde qué fecha se aplica cada medida.",
+      "url": "assets/rdl-26-2026-vivienda-fiscal.pdf"
+    }
+  ],
   "posts": [
     {
       "date": "21 ago 2026",

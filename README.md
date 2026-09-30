@@ -27,6 +27,14 @@ Si tienes el enlace directo al post de LinkedIn, úsalo en `"url"`; si no, deja 
 
 Edita el objeto `"featured"` en el mismo archivo. Admite una etiqueta `<em>...</em>` en el título si quieres una palabra en cursiva.
 
+### Añadir un artículo en PDF
+
+Copia el PDF en `assets/` y añade un objeto **al principio** de la lista `"articulos"` (aparece en el folio *Publicaciones*, bajo la destacada):
+
+```json
+{ "date": "30 sep 2026", "title": "Título", "excerpt": "Resumen breve.", "url": "assets/nombre-del-archivo.pdf" }
+```
+
 ### Añadir un artículo de Gaceta Fiscal
 
 Añade un objeto a la lista `"gaceta"`:
@@ -38,7 +46,7 @@ Añade un objeto a la lista `"gaceta"`:
 ### Publicar el cambio
 
 ```bash
-git add assets/posts.json
+git add assets/
 git commit -m "Nuevo artículo: <título>"
 git push
 ```
